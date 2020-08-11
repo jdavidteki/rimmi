@@ -1,0 +1,8 @@
+.app {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    min-width: 900px;
+    width: 100%;
+}
+  
