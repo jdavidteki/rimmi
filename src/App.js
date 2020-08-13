@@ -1,10 +1,14 @@
 import React, { Component } from "react";
 import Header from "./Components/Header/Header.js";
+import Searcher from "./Components/Searcher/Searcher.js";
+import ProductList from "./Components/ProductList/ProductList.js";
+import Result from "./Components/Result/Result.js";
 import Footer from "./Components/Footer/Footer.js";
 import { StyleSheet } from 'react-native';
 import { Switch, Route } from "react-router-dom";
 import Login from "./Components/Login/Login";
 import SignUp from "./Components/SignUp/SignUp";
+
 import "./App.css";
 
 class App extends Component {
@@ -15,6 +19,8 @@ class App extends Component {
         <div className="app-body">
           <div className="content">
             <Switch>
+              <Route path="/" exact component={Searcher} />
+              <Route path="/productlist/" component={ProductList} />
               <Route path="/login" component={Login} />
               <Route path="/signup" component={SignUp} />
               <Route

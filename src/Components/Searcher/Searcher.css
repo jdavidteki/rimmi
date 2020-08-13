@@ -1,0 +1,8 @@
+.Searcher-container
+{
+    display: flex;
+    flex-direction: column;
+    min-height: 400px;
+    align-items: center;
+    justify-content: center;
+}

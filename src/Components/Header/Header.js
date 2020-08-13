@@ -1,10 +1,27 @@
 import React, { Component } from "react";
+import { setLoggedInUser } from "../../Redux/Actions";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
-class Header extends Component {
+
+const mapStateToProps = state => {
+  return {
+    loggedInUser: state.loggedInUser,
+    someoneLoggedIn: state.someoneLoggedIn,
+  };
+};
+
+class ConnectedHeader extends Component {
   state = {
   };
 
-  componentDidMount(){}
+  componentDidMount(){
+    let user = JSON.parse(localStorage.getItem('loggedInUser'));
+
+    if (user != null){
+      this.props.dispatch(setLoggedInUser({ name: user.name, uid: user.uid }));
+    }
+  }
 
   render() {
     let { anchorEl } = this.state;
@@ -15,4 +32,5 @@ class Header extends Component {
   }
 }
 
+const Header = withRouter(connect(mapStateToProps)(ConnectedHeader));
 export default Header;

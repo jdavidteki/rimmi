@@ -6,8 +6,9 @@ import Button from "@material-ui/core/Button";
 import Avatar from '@material-ui/core/Avatar';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Firebase from "../../Firebase/firebase.js";
+import { setLoggedInUser } from "../../Redux/Actions";
 
-class SignUp extends Component {
+class ConnectedSignUp extends Component {
   state = {
     firstName: "",
     lastName: "",
@@ -117,7 +118,7 @@ class SignUp extends Component {
                   "name": this.state.firstName + ' ' + this.state.lastName,
                   "uid": user.user.uid,
                 }));
-                // this.props.dispatch(setLoggedInUser({ name: this.state.firstName + ' ' + this.state.lastName }));
+                this.props.dispatch(setLoggedInUser({ name: this.state.firstName + ' ' + this.state.lastName }));
                 this.setState(() => ({
                   redirectToReferrer: true
                 }));
@@ -138,5 +139,7 @@ class SignUp extends Component {
     );
   }
 }
+
+const SignUp = withRouter(connect()(ConnectedSignUp));
 
 export default SignUp;

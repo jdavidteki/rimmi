@@ -1,11 +1,14 @@
 import React, { Component } from "react";
+import { withRouter, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Avatar from '@material-ui/core/Avatar';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Firebase from "../../Firebase/firebase.js";
+import { setLoggedInUser } from "../../Redux/Actions";
 
-class Login extends Component {
+class ConnectedLogin extends Component {
   state = {
     email: "",
     pass: "",
@@ -18,7 +21,7 @@ class Login extends Component {
   }
 
   render() {
-    const { from } = this.props.location.state || { from: { pathname: "/idken" } };
+    const { from } = this.props.location.state || { from: { pathname: "/" } };
 
     // If user was authenticated, redirect her to where she came from.
     if (this.state.redirectToReferrer === true) {
@@ -85,7 +88,7 @@ class Login extends Component {
                   "name": user.user.displayName,
                   "uid": user.user.uid,
                 }));
-                // this.props.dispatch(setLoggedInUser({ name:  user.user.displayName, uid: user.user.uid }));
+                this.props.dispatch(setLoggedInUser({ name:  user.user.displayName, uid: user.user.uid }));
                 this.setState(() => ({
                   redirectToReferrer: true
                 }));
@@ -108,7 +111,7 @@ class Login extends Component {
             variant="outlined"
             color="primary"
             onClick={() => {
-              this.props.history.push("/idken/signup");
+              this.props.history.push("/signup");
             }}
           >
             Sign Up
@@ -118,5 +121,7 @@ class Login extends Component {
     );
   }
 }
+
+const Login = withRouter(connect()(ConnectedLogin));
 
 export default Login;
