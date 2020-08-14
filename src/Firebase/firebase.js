@@ -346,7 +346,7 @@ class Firebase {
       if (val.totalQuantityInStock >= item.quantity){
         this.db().
         ref('/products/').
-        child(item.id + "/" + val.productChildId + "/").
+        child(item.id + "/rimmi/" + val.productChildId + "/rimmi/").
         update({
           quantity: val.totalQuantityInStock - item.quantity,
         })

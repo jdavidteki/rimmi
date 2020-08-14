@@ -22,7 +22,7 @@ class ConnectedItem extends Component {
       >
         <CardActionArea
           onClick={() => {
-            this.props.history.push("/details/" + this.props.item.id);
+            this.props.history.push("/rimmi/details/" + this.props.item.id);
           }}
         >
           <CardMedia
@@ -54,7 +54,7 @@ class ConnectedItem extends Component {
             size="small"
             style={{ marginRight: 50 }}
             onClick={() => {
-              this.props.history.push("/details/" + this.props.item.id);
+              this.props.history.push("/rimmi/details/" + this.props.item.id);
             }}
           >
             {" "}
@@ -82,9 +82,9 @@ class ConnectedItem extends Component {
 
                 if (this.props.loggedInUser.uid == this.props.item.sellerId){
                     //call seller view negotiation view
-                    this.props.history.push("/allnegotiations/" + this.props.item.id);
+                    this.props.history.push("/rimmi/allnegotiations/" + this.props.item.id);
                   } else {
-                    this.props.history.push("/negotiateprice/" + this.props.item.id);
+                    this.props.history.push("/rimmi/negotiateprice/" + this.props.item.id);
                   }
                 }}
                 color="primary"

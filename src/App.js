@@ -21,10 +21,10 @@ class App extends Component {
         <div className="app-body">
           <div className="content">
             <Switch>
-              <Route path="/" exact component={Searcher} />
-              <Route path="/productlist/" component={ProductList} />
-              <Route path="/login" component={Login} />
-              <Route path="/signup" component={SignUp} />
+              <Route path="/rimmi" exact component={Searcher} />
+              <Route path="/rimmi/productlist/" component={ProductList} />
+              <Route path="/rimi/login" component={Login} />
+              <Route path="/rimmi/signup" component={SignUp} />
               <Route
                 component={() => (
                   <div style={{ padding: 20 }}>Page not found</div>

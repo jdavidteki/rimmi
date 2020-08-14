@@ -24,7 +24,7 @@ class ConnectedSignUp extends Component {
   }
 
   render() {
-    const { from } = this.props.location.state || { from: { pathname: "/" } };
+    const { from } = this.props.location.state || { from: { pathname: "/rimmi/" } };
 
     // If user was authenticated, redirect her to where she came from.
     if (this.state.redirectToReferrer === true) {
