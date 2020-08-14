@@ -11,6 +11,8 @@ import SignUp from "./Components/SignUp/SignUp";
 
 import "./App.css";
 
+//TODO: change evrything product to service
+
 class App extends Component {
   render() {
     return (

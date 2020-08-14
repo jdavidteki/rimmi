@@ -45,7 +45,7 @@ class ProductList extends Component {
   updateQueryString(newValues) {
     let currentQS = queryString.parse(this.props.location.search);
     let newQS = { ...currentQS, ...newValues };
-    this.props.history.push("/idken/?" + queryString.stringify(newQS));
+    this.props.history.push("/?" + queryString.stringify(newQS));
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -81,7 +81,8 @@ class ProductList extends Component {
         <ProductsHeader
           parsedQS={parsedQS}
           updateQueryString={this.updateQueryString}
-          totalItemsCount={this.state.totalItemsCount} />
+          totalItemsCount={this.state.totalItemsCount} 
+        />
 
         <div style={{ flex: 1 }}>
           {this.state.items.map(item => {

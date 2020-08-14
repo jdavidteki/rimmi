@@ -37,7 +37,7 @@ class Api {
   }
 
   searchItems({
-    category = "popular",
+    // category = "popular",
     term = "",
     sortValue = "lh",
     itemsPerPage = 10,
@@ -52,6 +52,7 @@ class Api {
     
     return new Promise((resolve, reject) => {
 
+      //TODO: modify this so that whole services are not always returned
       setTimeout(() => {
         Firebase.getAllProducts().
         then(val => {
@@ -68,13 +69,14 @@ class Api {
               return false;
             }
   
-            if (category === "popular") {
-              return item.popular;
-            }
+            //TODO: use a.i to determine category parameters to be used so as to reduce filter times for scaling purposes
+            // if (category === "popular") {
+            //   return item.popular;
+            // }
   
-            if (category !== "All categories" && category !== item.category)
-              return false;
-  
+            // if (category !== "All categories" && category !== item.category)
+            //   return false;
+            
             if (term && !item.name.toLowerCase().includes(term.toLowerCase()))
               return false;
   
