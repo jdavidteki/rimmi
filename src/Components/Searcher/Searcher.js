@@ -46,7 +46,7 @@ class ConnectedSearcher extends Component {
           color="primary"
           onClick={() => {
             this.props.history.push(
-              "/rimmi/productlist?term=" +
+              "/rimmi/servicelist?term=" +
               this.state.searchTerm
             );
           }}

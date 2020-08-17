@@ -9,7 +9,7 @@ import ProductsHeader from "../ProductsHeader/ProductsHeader"
 
 // This component is responsible for fetching products. It determines from query string which products to fetch.
 // The URL is checked on initial mount and when URL changes.
-class ProductList extends Component {
+class ServiceList extends Component {
   constructor(props) {
     super(props);
 
@@ -30,7 +30,7 @@ class ProductList extends Component {
     let qsAsObject = queryString.parse(this.props.location.search);
 
     let results = await Api.searchItems(qsAsObject);
-
+    
     this.setState({
       items: results.data,
       loading: false,
@@ -86,7 +86,7 @@ class ProductList extends Component {
 
         <div style={{ flex: 1 }}>
           {this.state.items.map(item => {
-            return <Item key={item.id} item={item} />;
+            return <Item key={item.VendorID} item={item} />;
           })}
         </div>
 
@@ -100,4 +100,4 @@ class ProductList extends Component {
   }
 }
 
-export default ProductList;
+export default ServiceList;

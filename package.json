@@ -13,6 +13,8 @@
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
+    "daypilot-pro-angular": "https://npm.daypilot.org/daypilot-pro-angular/trial/2020.3.4630.tar.gz",
+    "daypilot-pro-react": "https://npm.daypilot.org/daypilot-pro-react/trial/2018.2.3297.tar.gz",
     "expo": "~38.0.8",
     "expo-status-bar": "^1.0.2",
     "firebase": "^7.17.2",
@@ -24,6 +26,7 @@
     "react-native-web": "~0.11.7",
     "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
+    "react-scheduler-calendar": "^0.3.2-0",
     "redux": "^4.0.5"
   },
   "devDependencies": {

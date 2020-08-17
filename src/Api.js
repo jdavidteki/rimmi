@@ -8,14 +8,15 @@ class Api {
   getItemUsingID(id) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        Firebase.getAllProducts().
+        Firebase.getAllServices().
         then(val => {
           var allProducts = []
+
           for (var i = 0; i < val.length; i++) {
-            allProducts.push(Object.values(val[i])[0])
+            allProducts.push(val[i])
           }
 
-          let res = allProducts.filter(x => x.id === parseInt(id, 10));
+          let res = allProducts.filter(x => x.VendorID === id);
           resolve(res.length === 0 ? null : res[0]);
         })
       }, 500);
@@ -37,7 +38,7 @@ class Api {
   }
 
   searchItems({
-    // category = "popular",
+    category = "All categories",
     term = "",
     sortValue = "lh",
     itemsPerPage = 10,
@@ -54,11 +55,12 @@ class Api {
 
       //TODO: modify this so that whole services are not always returned
       setTimeout(() => {
-        Firebase.getAllProducts().
+        Firebase.getAllServices().
         then(val => {
           var allProducts = []
+
           for (var i = 0; i < val.length; i++) {
-            allProducts.push(Object.values(val[i])[0])
+            allProducts.push(val[i])
           }
 
           let data = allProducts.filter(item => {
@@ -74,10 +76,10 @@ class Api {
             //   return item.popular;
             // }
   
-            // if (category !== "All categories" && category !== item.category)
-            //   return false;
+            if (category !== "All categories" && category !== item.Category)
+              return false;
             
-            if (term && !item.name.toLowerCase().includes(term.toLowerCase()))
+            if (term && !item.Services.toLowerCase().includes(term.toLowerCase()))
               return false;
   
             return true;

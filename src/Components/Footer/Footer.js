@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./Footer.css"
 
 class Footer extends Component {
   state = {
@@ -10,7 +11,9 @@ class Footer extends Component {
     let { anchorEl } = this.state;
     
     return (
-      <div>Footer will go here</div>
+      <div className="Footer">
+        Copyright rimmi.com
+      </div>
     );
   }
 }

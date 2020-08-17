@@ -191,10 +191,10 @@ class Firebase {
     })
   }
 
-  getAllProducts = () => {
+  getAllServices = () => {
     return new Promise((resolve, reject) => {
       this.db().
-      ref('/products/').
+      ref('/vendors/').
       once('value').
       then(snapshot => {
         if (snapshot.val()){

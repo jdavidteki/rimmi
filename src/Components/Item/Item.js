@@ -22,12 +22,12 @@ class ConnectedItem extends Component {
       >
         <CardActionArea
           onClick={() => {
-            this.props.history.push("/rimmi/details/" + this.props.item.id);
+            this.props.history.push("/rimmi/details/" + this.props.item.VendorID);
           }}
         >
           <CardMedia
             style={{ height: 140 }}
-            image={this.props.item.imageUrls[0]}
+            image={this.props.item.ImageURL}
           />
           <CardContent style={{ height: 50 }}>
             <div
@@ -39,12 +39,14 @@ class ConnectedItem extends Component {
                 textOverflow: "ellipsis"
               }}
             >
-              {this.props.item.name}
+              {this.props.item.FirstName} {this.props.item.LastName}
             </div>
-            <div style={{ margin: 5 }}>Price: {this.props.item.price} $</div>
+            {/* <div style={{ margin: 5 }}>Price: {this.props.item.price} $</div> */}
             <div style={{ color: "#1a9349", fontWeight: "bold", margin: 5 }}>
-              {this.props.item.popular && "Popular"}
+              <p>{this.props.item.MainPhone}</p>
+              <p>{this.props.item.OfficeCity}</p>
             </div>
+
           </CardContent>
         </CardActionArea>
         <CardActions
@@ -54,7 +56,7 @@ class ConnectedItem extends Component {
             size="small"
             style={{ marginRight: 50 }}
             onClick={() => {
-              this.props.history.push("/rimmi/details/" + this.props.item.id);
+              this.props.history.push("/rimmi/details/" + this.props.item.VendorID);
             }}
           >
             {" "}
@@ -73,7 +75,7 @@ class ConnectedItem extends Component {
               <AddShoppingCartIcon size="small" />
             </IconButton>
           </Tooltip>
-          {this.props.loggedInUser ? (
+          {/* {this.props.loggedInUser ? (
             <Tooltip title="Negotiate Price">
               <IconButton
                 size="small"
@@ -82,9 +84,9 @@ class ConnectedItem extends Component {
 
                 if (this.props.loggedInUser.uid == this.props.item.sellerId){
                     //call seller view negotiation view
-                    this.props.history.push("/rimmi/allnegotiations/" + this.props.item.id);
+                    this.props.history.push("/rimmi/allnegotiations/" + this.props.item.VendorID);
                   } else {
-                    this.props.history.push("/rimmi/negotiateprice/" + this.props.item.id);
+                    this.props.history.push("/rimmi/negotiateprice/" + this.props.item.VendorID);
                   }
                 }}
                 color="primary"
@@ -95,7 +97,7 @@ class ConnectedItem extends Component {
             </Tooltip>
           ):(
             <div  style={{ display: "none" }}></div>
-          )}
+          )} */}
         </CardActions>
       </Card>
     );
