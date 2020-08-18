@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {DayPilot, DayPilotCalendar} from "daypilot-pro-react";
 import Api from "../../Api";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Firebase from "../../Firebase/firebase.js";
 
 class Schedular extends Component {
   constructor(props) {
@@ -14,12 +15,13 @@ class Schedular extends Component {
       item: null,
       itemLoading: false,
 
+      //calendar config
       startDate: "2020-02-02",
       viewType: "Week",
       cellHeight: 30,
       timeRangeSelectedHandling: "Enabled",
       onTimeRangeSelected: function (args) {
-        DayPilot.Modal.prompt("Create a new event:", "Event 1").then(function(modal) {
+        DayPilot.Modal.prompt("Create a new event:", "leave some notes").then(function(modal) {
           var dp = args.control;
           dp.clearSelection();
           if (!modal.result) { return; }
@@ -29,6 +31,15 @@ class Schedular extends Component {
             id: DayPilot.guid(),
             text: modal.result
           }));
+          Firebase.addApmts(
+            props.match.params.id, 
+            {
+              start: args.start.value,
+              end: args.end.value,
+              id: DayPilot.guid(),
+              text: modal.result
+            }
+          )
         });
       },
       onBeforeEventRender: args => {
@@ -67,6 +78,24 @@ class Schedular extends Component {
     }
   }
 
+  getApmts(serviceID) {
+    Firebase.getApmtsByID(serviceID).
+    then(val => {
+      var apmts = []
+
+      for (var i = 0; i < val.length; i++) {
+        apmts.push(val[i])
+      }
+
+      if (this.isCompMounted) {
+        this.setState({
+          startDate: DayPilot.Date.today(),
+          events: apmts,
+        });
+      }
+    })
+  }
+
   componentDidUpdate(prevProps, prevState, snapshot) {
 
     // If ID of product changed in URL, refetch details for that product
@@ -85,31 +114,9 @@ class Schedular extends Component {
   }
 
   componentDidMount() {
-
     this.isCompMounted = true;
     this.fetchVendorForCalendar(this.props.match.params.id);
-
-    // load resource and event data
-    this.setState({
-      startDate: DayPilot.Date.today(),
-      events: [
-        {
-          id: 1,
-          text: "Event 1",
-          start: DayPilot.Date.today().addHours(10),
-          end: DayPilot.Date.today().addHours(14)
-        },
-        {
-          id: 2,
-          text: "Event 2",
-          start: "2020-02-02T10:00:00",
-          end: "2020-02-02T11:00:00",
-          barColor: "#38761d",
-          barBackColor: "#93c47d"
-        }
-      ]
-    });
-
+    this.getApmts(this.props.match.params.id)
   }
 
   render() {

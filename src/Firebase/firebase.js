@@ -92,104 +92,6 @@ class Firebase {
         });
     })
   };
-  
-  postChats = (seller, buyer, message, productId, senderID) =>{
-    return new Promise((resolve, reject) => {
-      this.db().
-      ref('/chats/' + seller + '/' + productId + '/' + buyer + '/').
-      push({
-          content: message,
-          timestamp: Date.now(),
-          uid: senderID,
-       }).
-      then(() => {
-        resolve(true)
-      }).catch(error =>{
-        reject(error)
-      })
-    })
-  }
-
-  getAllNegotiations = (sellerID, productId) =>{
-    return new Promise((resolve, reject) => {
-      this.db().
-      ref('/chats/' + sellerID + '/' + productId + '/').
-      once('value').
-      then(snapshot => {
-        resolve(snapshot.val())
-      }).
-      catch(error => {
-        reject(error)
-      })
-    })
-  }
-
-  getUserNameFromID = (uid) => {
-    return new Promise((resolve, reject) => {
-      this.db().
-      ref('/users/' + uid).
-      once('value').
-      then(snapshot => {
-        resolve(snapshot.val())
-      }).
-      catch(error => {
-        reject(error)
-      })
-    })
-  }
-
-  sendNewDeal = (sellerId, buyerId, productId, amount) =>{
-    return new Promise((resolve, reject) => {
-      this.db().
-      ref('/deals/' + sellerId + '/' + productId + '/' + buyerId + '/').
-      set({
-          deal: amount,
-          timestamp: Date.now(),
-       }).
-      then((val) => {
-        resolve(val)
-      }).catch(error =>{
-        reject(error)
-      })
-    })
-  }
-
-  sealDeal = (sellerId, productId, action) => {
-    return new Promise((resolve, reject) => {
-      this.db().
-      ref('/deals/' + sellerId + '/' + productId + '/dealSealed/').
-      set({
-          dealSealed: action,
-       }).
-      then((val) => {
-        resolve(val)
-      }).catch(error =>{
-        reject(error)
-      })
-    })
-  }
-
-  ceateNewProduct = (productInfo) =>{
-    return new Promise((resolve, reject) => {
-      this.db().
-      ref('/products/' + productInfo.id + '/').
-      push({
-          id: productInfo.id,
-          name: productInfo.name,
-          category: productInfo.category,
-          sellerId: productInfo.sellerId,
-          price: productInfo.price,
-          description: productInfo.description,
-          popular: productInfo.popular,
-          imageUrls: productInfo.imageUrls
-       }).
-      then(() => {
-        resolve(true)
-      }).catch(error =>{
-        reject(error)
-      })
-    })
-  }
 
   getAllServices = () => {
     return new Promise((resolve, reject) => {
@@ -209,13 +111,17 @@ class Firebase {
     })
   }
 
-  getItemsInUserCart = (uid) => {
+  getApmtsByID = (serviceID) => {
     return new Promise((resolve, reject) => {
       this.db().
-      ref('/carts/' + uid).
+      ref('/appointments/'+serviceID+'/').
       once('value').
       then(snapshot => {
-        resolve(snapshot.val())
+        if (snapshot.val()){
+            resolve(Object.values(snapshot.val()))
+          }else{
+            resolve({})
+        }
       }).
       catch(error => {
         reject(error)
@@ -223,89 +129,39 @@ class Firebase {
     })
   }
 
-  addItemToCart = (obj) => {
-    this.db().
-    ref('/carts/' + obj.uid).
-    once('value', snapshot => {
-      let val = [];
-      let allItems = [];
-      
-      if (snapshot.val()) {
-        val = Object.values(snapshot.val())
-        for (var i = 0; i < val.length; i++) {
-          allItems.push({...val[i].item})
-        }
-      }
-
-      let index = allItems.findIndex(x => x.id === obj.item.id);
-      // Is the item user wants to add already in the cart?
-      if (index !== -1) {
-        this.db().
-        ref('/carts/').
-        child(obj.uid + '/' + obj.item.id + '/item/').
-        update({
-          quantity: allItems[index].quantity + obj.quantity,
-        })
-
-      }else{
-        this.db().
-        ref('/carts/').
-        child(obj.uid + '/' + obj.item.id).
-        set({
-          item: {...obj.item, quantity: obj.quantity,},
-        })
-      }
-    })
-  }
-
-  updateCartItemQnt = (obj) => {
-    this.db().
-    ref('/carts/' + obj.uid).
-    once('value', snapshot => {
-      let val = [];
-      let allItems = [];
-      
-      if (snapshot.val()) {
-        val = Object.values(snapshot.val())
-        for (var i = 0; i < val.length; i++) {
-          allItems.push({...val[i].item})
-        }
-      }
-
-      let index = allItems.findIndex(x => x.id === obj.id);
-
-      if (index !== -1) {
-        this.db().
-        ref('/carts/').
-        child(obj.uid + '/' + obj.id + '/item/').
-        update({
-          quantity: obj.quantity,
-        })
-      }
-    })
-  }
-
-  deleteDeal = (product) => {
-    return new Promise(resolve => {
+  getApmtsByID = (serviceID) => {
+    return new Promise((resolve, reject) => {
       this.db().
-      ref('/deals/' + product.sellerId).
-      child(product.id).
-      remove().
-      then(() => {
-        resolve(true)
+      ref('/appointments/'+serviceID+'/').
+      once('value').
+      then(snapshot => {
+        if (snapshot.val()){
+            resolve(Object.values(snapshot.val()))
+          }else{
+            resolve({})
+        }
+      }).
+      catch(error => {
+        reject(error)
       })
     })
   }
 
-  deleteItemFromCart = (obj) => {
-    return new Promise(resolve => {
+  addApmts = (serviceID, apmtsObject) => {
+    console.log("serviceID", serviceID, apmtsObject)
+    return new Promise((resolve, reject) => {
       this.db().
-      ref('/carts/' + obj.uid).
-      child(obj.product.id).
-      remove().
+      ref('/appointments/' + serviceID + '/').
+      push({
+        start: apmtsObject.start,
+        end: apmtsObject.end,
+        id: apmtsObject.id,
+        text: apmtsObject.text
+      }).
       then(() => {
-        this.deleteDeal(obj.product)
         resolve(true)
+      }).catch(error =>{
+        reject(error)
       })
     })
   }
@@ -317,113 +173,6 @@ class Firebase {
       once('value').
       then(snapshot => {
         resolve(snapshot.val())
-      }).
-      catch(error => {
-        reject(error)
-      })
-    })
-  }
-
-  getProdQuantity(id){
-    return new Promise((resolve, reject) => {
-      this.db().
-      ref('/products/' + id).
-      once('value').
-      then(snapshot => {
-        let totalQuantityInStock = Object.values(snapshot.val())[0].quantity
-        let productChildId = Object.keys(snapshot.val())[0]
-        resolve({totalQuantityInStock, productChildId})
-      }).
-      catch(error => {
-        reject(error)
-      })
-    })
-  }
-
-  updateProdQntInStock = (item) => {
-    this.getProdQuantity(item.id).
-    then( val => {
-      if (val.totalQuantityInStock >= item.quantity){
-        this.db().
-        ref('/products/').
-        child(item.id + "/rimmi/" + val.productChildId + "/rimmi/").
-        update({
-          quantity: val.totalQuantityInStock - item.quantity,
-        })
-      }else{
-        this.enoughInStock.enough = false
-        this.enoughInStock.name = item.name
-        this.enoughInStock.noItemsLeft = val.totalQuantityInStock
-      }
-    })
-  }
-
-  updateTotalUserSpent = (uid, totalSpentNow) => {
-    return new Promise((resolve, reject) => {
-      this.db().
-      ref('/profiles/' + uid + '/totalSpent').
-      once('value').
-      then(snapshot => {
-        let totalSpentSoFar = snapshot.val()
-
-        this.db().
-        ref('/profiles/').
-        child(uid + '/').
-        update({
-          totalSpent: totalSpentSoFar + totalSpentNow,
-        })
-      }).
-      catch(error => {
-        reject(error)
-      })
-    })
-  }
-
-  //add to checkout db 
-  //update quantity field in product db
-  checkOutCartItems = (uid, checkedOutItems, totalPriceToCharge) => {
-    return new Promise((resolve, reject) => {
-      this.db().
-      ref('/checkedOutItems/' + uid + '/').
-      push({
-        items: checkedOutItems,
-       }).
-      then((val) => {
-        checkedOutItems.forEach(this.updateProdQntInStock);
-
-        //rethink this strategy. we ideally should wait for the above
-        //line to finish running before the lines in the below
-        //setTimeout function.
-        setTimeout(
-          () => { 
-            if (this.enoughInStock.enough){
-              checkedOutItems.forEach(item => this.deleteItemFromCart({product: item, uid:uid}));
-              this.updateTotalUserSpent(uid, totalPriceToCharge);
-              resolve(val)
-            }else{
-              let errorMsg = `Sorry, ${this.enoughInStock.name} is out of stock`
-              if(this.enoughInStock.noItemsLeft > 0){
-                errorMsg = `Sorry, there are only ${this.enoughInStock.noItemsLeft} ${this.enoughInStock.name}s left in stock`
-              }
-              reject(errorMsg)
-            }
-          }, 
-          2500
-        );
-      }).
-      catch(error =>{
-        reject(error)
-      })
-    })
-  }
-
-  getCheckedOutItems = (uid) => {
-    return new Promise((resolve, reject) => {
-      this.db().
-      ref('/checkedOutItems/' + uid).
-      once('value').
-      then(snapshot => {
-        resolve(Object.values(snapshot.val()))
       }).
       catch(error => {
         reject(error)
