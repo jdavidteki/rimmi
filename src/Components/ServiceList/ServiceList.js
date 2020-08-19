@@ -71,9 +71,13 @@ class ServiceList extends Component {
     let parsedQS = queryString.parse(this.props.location.search);
 
     if (this.state.loading) {
-      return (
-        <CircularProgress className="circular" />
-      );
+      return (<CircularProgress 
+        className="circleStatic" 
+        size={60}
+        style={{
+          position: 'absolute', left: '50%', top: '50%',
+        }}
+      />);
     }
 
     return (

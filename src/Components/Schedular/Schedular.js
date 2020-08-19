@@ -3,8 +3,10 @@ import {DayPilot, DayPilotCalendar} from "daypilot-pro-react";
 import Api from "../../Api";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Firebase from "../../Firebase/firebase.js";
+import Login from "../Login/Login"
+import { connect } from "react-redux";
 
-class Schedular extends Component {
+class ConnectedSchedular extends Component {
   constructor(props) {
     super(props);
 
@@ -97,7 +99,6 @@ class Schedular extends Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-
     // If ID of product changed in URL, refetch details for that product
     if (this.props.match.params.id !== prevProps.match.params.id) {
       this.fetchVendorForCalendar(this.props.match.params.id);
@@ -120,8 +121,18 @@ class Schedular extends Component {
   }
 
   render() {
+    if (this.props.loggedInUser == null){
+      return <Login/>;
+    }
+
     if (this.state.itemLoading) {
-      return <CircularProgress className="circular" />;
+      return (<CircularProgress 
+        className="circleStatic" 
+        size={60}
+        style={{
+          position: 'absolute', left: '50%', top: '50%',
+        }}
+      />);
     }
 
     if (!this.state.item) {
@@ -145,4 +156,12 @@ class Schedular extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    loggedInUser: state.loggedInUser,
+  };
+};
+
+let Schedular = connect(mapStateToProps)(ConnectedSchedular);
 export default Schedular;
+

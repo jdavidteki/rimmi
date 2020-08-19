@@ -82,9 +82,13 @@ class ConnectedProfile extends Component {
             )
         }
 
-        return (
-            <CircularProgress className="circular" />
-        )
+        return (<CircularProgress 
+            className="circleStatic" 
+            size={60}
+            style={{
+              position: 'absolute', left: '50%', top: '50%',
+            }}
+        />);
     }
 }
 const Profile = withRouter(connect(mapStateToProps)(ConnectedProfile));

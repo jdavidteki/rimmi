@@ -64,7 +64,13 @@ class ConnectedDetails extends Component {
 
   render() {
     if (this.state.itemLoading) {
-      return <CircularProgress className="circular" />;
+      return (<CircularProgress 
+        className="circleStatic" 
+        size={60}
+        style={{
+          position: 'absolute', left: '50%', top: '50%',
+        }}
+      />);
     }
 
     if (!this.state.item) {
