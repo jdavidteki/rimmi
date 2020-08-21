@@ -12,7 +12,7 @@ import Auth from "../../Auth";
 import {
   logout,
 } from "../../Redux/Actions";
-import "./Header.css"
+import './Header.css';
 
 const mapStateToProps = state => {
   return {
