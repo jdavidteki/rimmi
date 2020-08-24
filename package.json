@@ -24,6 +24,7 @@
     "react-dom": "~16.11.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
     "react-native-web": "~0.11.7",
+    "react-popup": "^0.10.0",
     "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
     "react-scheduler-calendar": "^0.3.2-0",

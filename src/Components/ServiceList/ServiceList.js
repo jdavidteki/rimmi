@@ -5,9 +5,10 @@ import queryString from "query-string";
 import Api from "../../Api";
 import Paging from "../Paging/Paging";
 import ProductsHeader from "../ProductsHeader/ProductsHeader"
+import Button from "@material-ui/core/Button";
 
 
-// This component is responsible for fetching products. It determines from query string which products to fetch.
+// This component is responsible for fetching services. It determines from query string which products to fetch.
 // The URL is checked on initial mount and when URL changes.
 class ServiceList extends Component {
   constructor(props) {
@@ -81,24 +82,42 @@ class ServiceList extends Component {
     }
 
     return (
-      <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
-        <ProductsHeader
-          parsedQS={parsedQS}
-          updateQueryString={this.updateQueryString}
-          totalItemsCount={this.state.totalItemsCount} 
-        />
+      <div>
+        <Button
+            style={{ marginBottom: 20}}
+            variant="outlined"
+            color="primary"
+            onClick={() => {
+            this.props.history.push(
+                "/rimmi/servicemaps" +
+                this.props.location.search
+            );
+            }}
+        >
+            {" "}
+            MAP VIEW
+        </Button>
 
-        <div style={{ flex: 1 }}>
-          {this.state.items.map(item => {
-            return <Item key={item.VendorID} item={item} />;
-          })}
+        <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+          <ProductsHeader
+            parsedQS={parsedQS}
+            updateQueryString={this.updateQueryString}
+            totalItemsCount={this.state.totalItemsCount} 
+          />
+
+          <div style={{ flex: 1 }}>
+            {this.state.items.map(item => {
+              return <Item key={item.VendorID} item={item} />;
+            })}
+          </div>
         </div>
 
-        <Paging
+        {/* TODO */}
+        {/* <Paging
           parsedQS={parsedQS}
           updateQueryString={this.updateQueryString}
           totalItemsCount={this.state.totalItemsCount}
-        />
+        /> */}
       </div >
     );
   }

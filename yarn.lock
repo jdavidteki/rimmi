@@ -4167,6 +4167,11 @@ keyboard-key@^1.1.0:
   resolved "https://registry.yarnpkg.com/keyboard-key/-/keyboard-key-1.1.0.tgz#6f2e8e37fa11475bb1f1d65d5174f1b35653f5b7"
   integrity sha512-qkBzPTi3rlAKvX7k0/ub44sqOfXeLc/jcnGGmj5c7BJpU8eDrEVPyhCvNYAaoubbsLm9uGWwQJO1ytQK1a9/dQ==
 
+keymaster@^1.6.2:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/keymaster/-/keymaster-1.6.2.tgz#e1ae54d0ea9488f9f60b66b668f02e9a1946c6eb"
+  integrity sha1-4a5U0OqUiPn2C2a2aPAumhlGxus=
+
 kind-of@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-1.1.0.tgz#140a3d2d41a36d2efcfa9377b62c24f8495a5c44"
@@ -5402,6 +5407,13 @@ react-popper@^1.3.7:
     prop-types "^15.6.1"
     typed-styles "^0.0.7"
     warning "^4.0.2"
+
+react-popup@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/react-popup/-/react-popup-0.10.0.tgz#8e8a7cd9a8b46d8f981c0216756e32ff2cacf2ac"
+  integrity sha512-NPO65MsAznv/JaP3MDz3DAqKJsA8fEcW5ttzTj6wGXtjPi0qDeB+f+hf4IbMcVrlJ2ZG4uHEdgL6B5QP/AGv3Q==
+  dependencies:
+    keymaster "^1.6.2"
 
 react-redux@^7.2.1:
   version "7.2.1"
