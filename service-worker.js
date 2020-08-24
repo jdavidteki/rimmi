@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/rimmi/precache-manifest.65d654103601fa3e16fc63b68e16964c.js"
+  "/rimmi/precache-manifest.dc4a2a76f2c967eccf845103b4fb6f36.js"
 );
 
 workbox.skipWaiting();

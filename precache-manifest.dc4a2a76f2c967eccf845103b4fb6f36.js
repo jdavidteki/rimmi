@@ -1,7 +1,7 @@
 self.__precacheManifest = [
   {
-    "revision": "f8e115b92a05e2861bb5",
-    "url": "/rimmi/static/js/app.852d3b6a.chunk.js"
+    "revision": "9df11c2be0b76708a464",
+    "url": "/rimmi/static/js/app.77e50f00.chunk.js"
   },
   {
     "revision": "4fb3d7c28c6654135d59",
@@ -12,12 +12,12 @@ self.__precacheManifest = [
     "url": "/rimmi/static/js/2.43d46d45.chunk.js"
   },
   {
-    "revision": "ec543248d7b23864564429fc03837190",
-    "url": "/rimmi/serve.json"
-  },
-  {
     "revision": "48c7ed4e7da9792af288a60d7242d615",
     "url": "/rimmi/expo-service-worker.js"
+  },
+  {
+    "revision": "ec543248d7b23864564429fc03837190",
+    "url": "/rimmi/serve.json"
   },
   {
     "revision": "71033553ddc0843407efe54c23890fe2",
@@ -32,7 +32,7 @@ self.__precacheManifest = [
     "url": "/rimmi/favicon.ico"
   },
   {
-    "revision": "cd48b053939406378f5c6afe937aab98",
+    "revision": "0fcd61004be905942e7b0daaa19f278f",
     "url": "/rimmi/index.html"
   },
   {
