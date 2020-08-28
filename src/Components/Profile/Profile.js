@@ -49,8 +49,19 @@ class ConnectedProfile extends Component {
 
         if (this.state.profileInfo != null){
             return (
-
                 <div className="Profile">
+                    <div className="Profile-vendorSignup">
+                        <Button
+                            style={{ marginTop: 20, width: 200 }}
+                            variant="outlined"
+                            color="primary"
+                            onClick={() => {
+                            this.props.history.push("/rimmi/vendorsignup");
+                            }}
+                        >
+                            Vendor Signup
+                        </Button>
+                    </div>
                     <div className="Profile-wrapper">
                         <div className="Profile-info">
                             <a href="#">

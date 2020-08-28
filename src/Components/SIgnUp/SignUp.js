@@ -117,6 +117,15 @@ class ConnectedSignUp extends Component {
                   "name": this.state.firstName + ' ' + this.state.lastName,
                   "uid": user.user.uid,
                 }));
+
+                Firebase.createUserProfile({
+                  firstName: this.state.firstName,
+                  lastName: this.state.lastName,
+                  email: this.state.email,
+                  password: this.state.pass, 
+                  uid: user.user.uid,               
+                })
+
                 this.props.dispatch(setLoggedInUser({ name: this.state.firstName + ' ' + this.state.lastName }));
                 this.setState(() => ({
                   redirectToReferrer: true

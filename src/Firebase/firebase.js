@@ -179,6 +179,60 @@ class Firebase {
       })
     })
   }
+
+  createUserProfile = (profile) => {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+    today = mm + '/' + dd + '/' + yyyy;
+
+    return new Promise((resolve, reject) => {
+      this.db().
+      ref('/profiles/' + profile.uid + '/').
+      set({
+        firstName: profile.firstName,
+        lastName: profile.lastName,
+        email: profile.email,
+        password: profile.password,
+        dateJoined: today,
+      }).
+      then(() => {
+        resolve(true)
+      }).catch(error =>{
+        reject(error)
+      })
+    })
+  }
+
+
+  vendorSignUp = (vendor) => {
+    console.log("vendor", vendor)
+    return new Promise((resolve, reject) => {
+      this.db().
+      ref('/vendors/' + vendor.uid + '/').
+      set({
+        VendorID: vendor.uid,
+        Services: vendor.services,
+        Category: vendor.category,
+        OfficeZip: vendor.officeZip,
+        OfficeState: vendor.officeState,
+        OfficeCity: vendor.officeCity,
+        OfficeLine1: vendor.officeLine1,
+        Twitter: vendor.twitterUsername,
+        Facebook: vendor.facebookUsername,
+        Description: vendor.discription,
+        MainPhone: vendor.mainPhone,
+        FirstName: vendor.firstName,
+        LastName: vendor.lastName,
+      }).
+      then(() => {
+        resolve(true)
+      }).catch(error =>{
+        reject(error)
+      })
+    })
+  }
 }
 
 export default new Firebase();

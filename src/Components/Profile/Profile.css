@@ -89,8 +89,8 @@
     color: #a3b6bb;
 }
 
-.Profile-orderHistory{
+.Profile-vendorSignup{
     position: fixed;
     top: 85px;
-    right: 10px;
+    right: 15%;
 }
