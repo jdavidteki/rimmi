@@ -225,6 +225,8 @@ class Firebase {
         MainPhone: vendor.mainPhone,
         FirstName: vendor.firstName,
         LastName: vendor.lastName,
+        latitude: 8.129319, //need to set the google api to billable for us to geocode https://console.cloud.google.com/google/maps-apis/metrics?project=lovefamz
+        longitide: 6.999504,
       }).
       then(() => {
         resolve(true)

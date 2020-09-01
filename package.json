@@ -28,6 +28,8 @@
     "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
     "react-scheduler-calendar": "^0.3.2-0",
+    "react-select": "^3.1.0",
+    "react-typing-effect": "^2.0.3",
     "redux": "^4.0.5",
     "semantic-ui-react": "^1.2.1"
   },

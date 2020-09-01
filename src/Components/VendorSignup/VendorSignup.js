@@ -6,9 +6,16 @@ import BusinessIcon from '@material-ui/icons/Business';
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Firebase from "../../Firebase/firebase";
+import Select from 'react-select';
 
 import "./VendorSignup.css"
 
+
+const options = [
+    { value: 'hair', label: 'hair' },
+    { value: 'personal service', label: 'personal service' },
+    { value: 'car service', label: 'car service' }
+];
 class ConnectedVendorSignup extends Component {
 
     state = {
@@ -25,12 +32,22 @@ class ConnectedVendorSignup extends Component {
         facebookUsername: "",
         discription: "",
         mainPhone: "",
+        selectedCategories: null,
     };
 
     componentDidMount() {
     }
 
+    isDisabled = (option) => {
+        if (this.state.options && this.state.options.length >= 2) {
+          return option.value = {};
+        }
+    };
   
+    handleChange = (selectedCategories) => {
+        this.setState({ selectedCategories });
+    }
+
     render() {
         return (
             <div style={{height: "100%"}}>
@@ -42,7 +59,7 @@ class ConnectedVendorSignup extends Component {
                 }}>
                     <div
                     style={{
-                        width: 200,
+                        width: 320,
                         padding: 30,
                         display: "flex",
                         alignItems: "center",
@@ -120,12 +137,15 @@ class ConnectedVendorSignup extends Component {
                         this.setState({ officeZip: e.target.value });
                         }}
                     />
-                    <TextField
-                        value={this.state.category}
-                        placeholder="Service category"
-                        onChange={e => {
-                        this.setState({ category: e.target.value });
-                        }}
+                    <Select
+                        value={this.state.selectedCategories}
+                        onChange={this.handleChange}
+                        options={options}
+                        isOptionDisabled={this.isDisabled}
+                        isMulti
+                        isSearchable
+                        placeholder={"Categories"}
+                        className={"VendorSignup-categories"}
                     />
                     <TextField
                         value={this.state.services}
@@ -139,12 +159,17 @@ class ConnectedVendorSignup extends Component {
                         variant="outlined"
                         color="primary"
                         onClick={() => {
+                            let categoriesString = ``
+                            for (var i = 0; i < this.state.selectedCategories.length; i++) {
+                                categoriesString += `${this.state.selectedCategories[i].value},`
+                            }
+
                             Firebase.vendorSignUp({
                                 uid: this.props.loggedInUser.uid,
                                 firstName: this.props.loggedInUser.name,
                                 lastName: this.props.loggedInUser.name,
                                 services: this.state.services,
-                                category: this.state.category,
+                                category: categoriesString,
                                 officeZip: this.state.officeZip,
                                 officeState: this.state.officeState,
                                 officeCity: this.state.officeCity,

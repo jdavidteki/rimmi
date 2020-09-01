@@ -80,6 +80,13 @@ class ConnectedHeader extends Component {
               >
                 Logout
               </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  this.props.history.push("/rimmi/");
+                }}
+              >
+                Home
+              </MenuItem>
               { this.props.someoneLoggedIn ? 
                 (
                   <MenuItem

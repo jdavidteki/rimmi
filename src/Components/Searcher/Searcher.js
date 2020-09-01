@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import ReactTypingEffect from 'react-typing-effect';
 
 import './Searcher.css';
 
@@ -15,8 +16,14 @@ const mapStateToProps = state => {
 };
 
 class ConnectedSearcher extends Component {
-  state = {
-  };
+  constructor(props){
+    super(props);
+
+    this.state = {
+      animations: ["haircut", "okada", "laundry", "vulcanizer", "purewater"], 
+      count:0,
+    };
+  }
 
   componentDidMount(){
     let user = JSON.parse(localStorage.getItem('loggedInUser'));
@@ -24,9 +31,17 @@ class ConnectedSearcher extends Component {
     if (user != null){
       this.props.dispatch(setLoggedInUser({ name: user.name, uid: user.uid }));
     }
+
+    setInterval( () => { 
+      this.setState({
+        count: (this.state.count+1) % 5
+      })
+    }, 3000);
+
   }
 
   render() {
+
     return (
       //TODO: make the search placeholder animate and change
       //make your hair?? --> pedicure?? --> barber shop?? --> braids???
@@ -54,6 +69,14 @@ class ConnectedSearcher extends Component {
           {" "}
           Search
         </Button>
+
+        <ReactTypingEffect
+          style={{ marginTop: 200, fontSize: 24, color: '#3F51B5' }}
+          text={this.state.animations[this.state.count] + '??'}
+          speed={150}
+          eraseDelay={150}
+          typingDelay={150}
+        />
       </div>      
     );
   }
