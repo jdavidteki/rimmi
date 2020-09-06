@@ -1,0 +1,14 @@
+/* smaller screens */
+.Details-aboutMe{
+    margin-left: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+    .Details-hero {
+        flex-direction: column;
+    }
+
+    .Details-aboutMe {
+        margin-left: 0;
+    }
+}

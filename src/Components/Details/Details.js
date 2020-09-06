@@ -5,19 +5,19 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Api from "../../Api";
 import Item from "../Item/Item";
 import { connect } from "react-redux";
-import TextField from "@material-ui/core/TextField";
+import { Tabs } from './Tabs'
 
+import "./Details.css"
 class ConnectedDetails extends Component {
   constructor(props) {
     super(props);
 
     this.isCompMounted = false;
-
     this.state = {
       relatedServices: [],
       quantity: 1,
       item: null,
-      itemLoading: false
+      itemLoading: false,
     };
   }
 
@@ -50,7 +50,6 @@ class ConnectedDetails extends Component {
 
   }
 
-
   componentDidMount() {
     this.isCompMounted = true;
     this.fetchProductAndRelatedServices(this.props.match.params.id);
@@ -61,6 +60,10 @@ class ConnectedDetails extends Component {
   }
 
 
+  handleSelect(key){
+    console.log('selected' + key);
+    this.setState({ key: key });
+  }
 
   render() {
     if (this.state.itemLoading) {
@@ -88,75 +91,52 @@ class ConnectedDetails extends Component {
         >
           {this.state.item.FirstName} {this.state.item.LastName}
         </div>
-        <div style={{ display: "flex" }}>
+        <div className="Details-hero" style={{ display: "flex" }}>
           <img src={this.state.item.ImageURL} alt="" width={250} height={250}
             style={{
               border: "1px solid lightgray",
               borderRadius: "5px",
               objectFit: "cover"
             }} />
-          <div
+          <div 
+            className="Details-aboutMe"
             style={{
               flex: 1,
-              marginLeft: 20,
               display: "flex",
               flexDirection: "column"
             }}
           >
 
-            <div style={{
-              fontSize: 16,
-
-            }}>
-              Price: ${this.state.item.price}
-            </div>
-            {this.state.item.popular && (
-              <div style={{ fontSize: 14, marginTop: 5, color: "#228B22" }}>
-                (Popular product)
-              </div>
-            )}
-
-            <TextField
-              type="number"
-              value={this.state.quantity}
-              style={{ marginTop: 20, marginBottom: 10, width: 70 }}
-              label="Quantity"
-              inputProps={{ min: 1, max: 10, step: 1 }}
-              onChange={e => {
-                this.setState({ quantity: parseInt(e.target.value) });
+            {/* Product description */}
+            <div
+              style={{
+                marginTop: 20,
+                marginBottom: 20,
+                fontSize: 22
               }}
-            />
+            >
+              About Me
+            </div>
+            <div
+              style={{
+                maxHeight: 200,
+                fontSize: 13,
+                overflow: "auto"
+              }}
+            >
+              {this.state.item.Description ? this.state.item.Description : "Not available"}
+            </div>
             <Button
-              style={{ width: 170, marginTop: 5 }}
+              style={{ width: 175, marginTop: 5 }}
               color="primary"
               variant="outlined"
               onClick={() => {
                 this.props.history.push("/rimmi/schedular/" + this.props.match.params.id);
               }}
             >
-              Schedule <AddShoppingCartIcon style={{ marginLeft: 5 }} />
+              Book Me<AddShoppingCartIcon style={{ marginLeft: 5 }} />
             </Button>
           </div>
-        </div>
-
-        {/* Product description */}
-        <div
-          style={{
-            marginTop: 20,
-            marginBottom: 20,
-            fontSize: 22
-          }}
-        >
-          About Service
-        </div>
-        <div
-          style={{
-            maxHeight: 200,
-            fontSize: 13,
-            overflow: "auto"
-          }}
-        >
-          {this.state.item.Description ? this.state.item.Description : "Not available"}
         </div>
 
         {/* Servics rendered */}
@@ -168,9 +148,23 @@ class ConnectedDetails extends Component {
             overflow: "auto"
           }}
         >
-          {this.state.item.Services ? this.state.item.Services : ""}
-        </div>
+          <div
+            style={{
+              marginTop: 20,
+              marginBottom: 20,
+              fontSize: 22
+            }}
+          >
+            My Services
+          </div>
 
+          {this.state.item.Services.length > 0 ?
+            (
+              <Tabs data={this.state.item.Services}/>
+            ) 
+            :""
+          }
+        </div>
         {/* relatedServices */}
         <div
           style={{

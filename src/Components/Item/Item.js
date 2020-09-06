@@ -43,8 +43,8 @@ class ConnectedItem extends Component {
             </div>
             {/* <div style={{ margin: 5 }}>Price: {this.props.item.price} $</div> */}
             <div style={{ color: "#1a9349", fontWeight: "bold", margin: 5 }}>
-              <p>{this.props.item.MainPhone}</p>
-              <p>{this.props.item.OfficeCity}</p>
+              {this.props.item.MainPhone}<br/>
+              {this.props.item.OfficeLine1}, {this.props.item.OfficeCity}
             </div>
 
           </CardContent>
