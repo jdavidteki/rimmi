@@ -1,11 +1,11 @@
 {
   "files": {
-    "app.js": "/rimmi/static/js/app.73ff911e.chunk.js",
-    "app.js.map": "/rimmi/static/js/app.73ff911e.chunk.js.map",
+    "app.js": "/rimmi/static/js/app.45666936.chunk.js",
+    "app.js.map": "/rimmi/static/js/app.45666936.chunk.js.map",
     "runtime~app.js": "/rimmi/static/js/runtime~app.bdd7229e.js",
     "runtime~app.js.map": "/rimmi/static/js/runtime~app.bdd7229e.js.map",
-    "static/js/2.17d96a41.chunk.js": "/rimmi/static/js/2.17d96a41.chunk.js",
-    "static/js/2.17d96a41.chunk.js.map": "/rimmi/static/js/2.17d96a41.chunk.js.map",
+    "static/js/2.6c984de1.chunk.js": "/rimmi/static/js/2.6c984de1.chunk.js",
+    "static/js/2.6c984de1.chunk.js.map": "/rimmi/static/js/2.6c984de1.chunk.js.map",
     "favicon-16.png": "/rimmi/favicon-16.png",
     "favicon-32.png": "/rimmi/favicon-32.png",
     "favicon.ico": "/rimmi/favicon.ico",
@@ -15,7 +15,7 @@
   },
   "entrypoints": [
     "static/js/runtime~app.bdd7229e.js",
-    "static/js/2.17d96a41.chunk.js",
-    "static/js/app.73ff911e.chunk.js"
+    "static/js/2.6c984de1.chunk.js",
+    "static/js/app.45666936.chunk.js"
   ]
 }
