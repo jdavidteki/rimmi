@@ -1,69 +1,95 @@
 import React, { Component } from "react";
 import renderHTML from 'react-render-html';
+import Firebase from "../../Firebase/firebase.js";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 import "./Tabs.css"
-
-// const TAB_DATA = [
-//   ["about", "lorem ipsum dolor sit amet"],
-//   ["contact", `<a href="facebook.com">jesuye</a> Curabitur \n in augue erat. Vestibulum in fermentum ante, sit amet consectetur neque. Maecenas tempor nisl sollicitudin, blandit sapien ut, fermentum metus.`],
-//   ["portfolio", "Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam aliquam, nisi vitae maximus tincidunt, justo leo auctor neque, et fermentum ante libero ac libero."],
-//   ["cool stuff", ""]
-// ];
 
 export class Tabs extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      active: 0
+      active: 0,
+      tabData: null
     }
   }
   
+  componentDidMount(){
+    this.buildTabDataFromServices()
+  }
+
   clickHandler = (e) => {
     this.setState({
       active: parseInt(e.currentTarget.attributes.num.value)
     })
   }
 
-  buildTabDataFromServices(){
+  buildTabDataFromServices = () => {
     let services = this.props.data.split(",")
     let tabData = []
 
-    for (var i=0; i<services.length; i++){
-      let trimService = services[i].trim()
+    Firebase.getAllServiceDetails().
+    then(val => {
 
-      if( trimService != ""){
-        tabData.push([trimService, trimService])
+      for (var i=0; i<services.length; i++){
+        let trimService = services[i].toLowerCase().trim()
+        let servicesDetails = Object(val)
+
+        if (servicesDetails[trimService] != undefined){
+          let detailedServiceList = servicesDetails[trimService]
+
+          for (var j=0; j<detailedServiceList.length; j++){
+            if (detailedServiceList[j] != undefined){
+              detailedServiceList[j] = 
+              `<a 
+                href="/rimmi/simmi"
+                style="text-decoration: none; white-space: nowrap;">
+                  <Button
+                    class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary"
+                  >
+                    ${detailedServiceList[j]}
+                  </Button>
+              </a>`
+            }
+          }
+
+          tabData.push([trimService, detailedServiceList.join(" ")])
+        }
+
       }
-    }
 
-    return tabData
+      this.setState({tabData: tabData})
+    })
   }
   
   render() {
     let content = "";
-    let TAB_DATA = this.buildTabDataFromServices()
 
-    const tabs = TAB_DATA.map(([label, text], i) => {
-      content = this.state.active === i ? text : content;  
-      return <li 
-               className={this.state.active === i ? "tab active" : "tab" } 
-               key={label} 
-               num={i}
-               onClick={this.clickHandler}>
-        {label}
-      </li>;
-    });
-    
-    return ( 
-      <section className="tabs">
-        <menu>
-          <ul>
-            {tabs}
-          </ul>
-        </menu>
-        <div>
-          {renderHTML(content)}
-        </div>
-      </section>);
+    if (this.state.tabData){
+      const tabs = this.state.tabData.map(([label, text], i) => {
+        content = this.state.active === i ? text : content;  
+        return <li 
+                 className={this.state.active === i ? "tab active" : "tab" } 
+                 key={label} 
+                 num={i}
+                 onClick={this.clickHandler}>
+          {label}
+        </li>;
+      });
+      
+      return ( 
+        <section className="tabs">
+          <menu>
+            <ul>
+              {tabs}
+            </ul>
+          </menu>
+          <div>
+            {renderHTML(content)}
+          </div>
+        </section>);
+    }
+
+    return <LinearProgress />
   }
 }

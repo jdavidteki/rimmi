@@ -235,6 +235,24 @@ class Firebase {
       })
     })
   }
+
+  getAllServiceDetails = () => {
+    return new Promise((resolve, reject) => {
+      this.db().
+      ref('/services/').
+      once('value').
+      then(snapshot => {
+        if (snapshot.val()){
+            resolve(snapshot.val())
+          }else{
+            resolve({})
+        }
+      }).
+      catch(error => {
+        reject(error)
+      })
+    })
+  }
 }
 
 export default new Firebase();
