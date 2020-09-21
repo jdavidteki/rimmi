@@ -160,7 +160,7 @@ class ConnectedDetails extends Component {
 
           {this.state.item.Services.length > 0 ?
             (
-              <Tabs data={this.state.item.Services}/>
+              <Tabs data={this.state.item.Services} vendorID={this.props.match.params.id}/>
             ) 
             :""
           }

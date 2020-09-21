@@ -41,8 +41,9 @@ export class Tabs extends Component {
           for (var j=0; j<detailedServiceList.length; j++){
             if (detailedServiceList[j] != undefined){
               detailedServiceList[j] = 
+              //TODO: can this be done more efficiently?
               `<a 
-                href="/rimmi/simmi"
+                href="/rimmi/schedular/${this.props.vendorID}/${trimService}/${detailedServiceList[j].split(" ").join("-")}"
                 style="text-decoration: none; white-space: nowrap;">
                   <Button
                     class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary"
