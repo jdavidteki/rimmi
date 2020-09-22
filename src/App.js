@@ -16,9 +16,6 @@ import VendorSignup from "./Components/VendorSignup/VendorSignup";
 
 import "./App.css";
 
-//TODO: change evrything product to service
-//investigage why its a pain to upload json to firebase
-
 class App extends Component {
   render() {
     return (
