@@ -129,34 +129,15 @@ class Firebase {
     })
   }
 
-  getApmtsByID = (serviceID) => {
-    return new Promise((resolve, reject) => {
-      this.db().
-      ref('/appointments/'+serviceID+'/').
-      once('value').
-      then(snapshot => {
-        if (snapshot.val()){
-            resolve(Object.values(snapshot.val()))
-          }else{
-            resolve({})
-        }
-      }).
-      catch(error => {
-        reject(error)
-      })
-    })
-  }
-
   addApmts = (serviceID, apmtsObject) => {
-    console.log("serviceID", serviceID, apmtsObject)
     return new Promise((resolve, reject) => {
       this.db().
       ref('/appointments/' + serviceID + '/').
       push({
-        start: apmtsObject.start,
-        end: apmtsObject.end,
-        id: apmtsObject.id,
-        text: apmtsObject.text
+        StartTime: JSON.stringify(apmtsObject.StartTime).replace(/['"]+/g, '').replace('.000Z', ''),
+        EndTime: JSON.stringify(apmtsObject.EndTime).replace(/['"]+/g, '').replace('.000Z', ''),
+        Id: serviceID,
+        Subject: apmtsObject.Subject
       }).
       then(() => {
         resolve(true)
