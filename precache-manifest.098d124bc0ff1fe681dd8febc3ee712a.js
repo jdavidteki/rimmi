@@ -1,7 +1,7 @@
 self.__precacheManifest = [
   {
-    "revision": "e3619647cfd677692a46",
-    "url": "/rimmi/static/js/app.2f8b8afa.chunk.js"
+    "revision": "a2cc4aeff8bdbfff74fe",
+    "url": "/rimmi/static/js/app.48c1efef.chunk.js"
   },
   {
     "revision": "4fb3d7c28c6654135d59",
@@ -32,7 +32,7 @@ self.__precacheManifest = [
     "url": "/rimmi/favicon.ico"
   },
   {
-    "revision": "ffc5fce1921608574d5f5d47e97cddd0",
+    "revision": "a613de78746536fbcbaef63f8ea8b72e",
     "url": "/rimmi/index.html"
   },
   {
