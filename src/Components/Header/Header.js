@@ -29,7 +29,7 @@ class ConnectedHeader extends Component {
     let user = JSON.parse(localStorage.getItem('loggedInUser'));
 
     if (user != null){
-      this.props.dispatch(setLoggedInUser({ name: user.name, uid: user.uid }));
+      this.props.dispatch(setLoggedInUser({ name: user.name, uid: user.uid, email: user.email }));
     }
   }
 

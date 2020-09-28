@@ -13,6 +13,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
+    "@sendgrid/mail": "^7.2.6",
     "@syncfusion/ej2-react-schedule": "^18.2.59",
     "daypilot-pro-angular": "https://npm.daypilot.org/daypilot-pro-angular/trial/2020.3.4630.tar.gz",
     "expo": "~38.0.8",

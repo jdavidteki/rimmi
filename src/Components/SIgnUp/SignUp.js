@@ -126,7 +126,7 @@ class ConnectedSignUp extends Component {
                   uid: user.user.uid,               
                 })
 
-                this.props.dispatch(setLoggedInUser({ name: this.state.firstName + ' ' + this.state.lastName }));
+                this.props.dispatch(setLoggedInUser({ name: this.state.firstName + ' ' + this.state.lastName, email: this.state.email }));
                 this.setState(() => ({
                   redirectToReferrer: true
                 }));

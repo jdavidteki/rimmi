@@ -84,11 +84,13 @@ class ConnectedLogin extends Component {
 
               Firebase.userLogin(this.state.email, this.state.pass)
               .then(user => {
+                console.log(user)
                 localStorage.setItem('loggedInUser', JSON.stringify({
                   "name": user.user.displayName,
                   "uid": user.user.uid,
+                  "email": user.user.email,
                 }));
-                this.props.dispatch(setLoggedInUser({ name:  user.user.displayName, uid: user.user.uid }));
+                this.props.dispatch(setLoggedInUser({ name:  user.user.displayName, uid: user.user.uid, email: user.email }));
                 this.setState(() => ({
                   redirectToReferrer: true
                 }));

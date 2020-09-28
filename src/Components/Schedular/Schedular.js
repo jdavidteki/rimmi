@@ -58,6 +58,33 @@ class ConnectedSchedular extends Component {
         });
       }
     }
+
+    sendEmail = (recipient, senderObj) => {
+
+      var requestOptions = {
+        method: 'GET',
+        redirect: 'follow',
+      };
+
+      //TODO: make this look nicer when user receives an email
+      let message = `
+        Hey There, 
+        This is to notify you that your appointment has been set. 
+        View details below...\n
+
+        Service: ${senderObj.Subject} \n
+        Time: ${senderObj.StartTime} \n
+        Confirmation No.: ${senderObj.Id} \n
+        Venue: TBD \n
+        
+      `
+
+      fetch(`https://uur0cncxx8.execute-api.us-east-1.amazonaws.com/default/rimmiEmailSender?recipient=${recipient}&message=${message}`, requestOptions)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+      });
+    };
   
     componentDidUpdate(prevProps, prevState, snapshot) {
       // If ID of product changed in URL, refetch details for that product
@@ -77,8 +104,11 @@ class ConnectedSchedular extends Component {
     }
 
     onActionBegin = (args) => {
+      //TODO: give events id so that user can modify events as needed
       if (args.requestType == 'eventCreate'){
+        console.log("args", args, this.props)
         Firebase.addApmts(this.props.match.params.id, args.data[0])
+        this.sendEmail(this.props.loggedInUser.email, args.data[0])
       }
     }
 
