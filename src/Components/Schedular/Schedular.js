@@ -65,21 +65,14 @@ class ConnectedSchedular extends Component {
         method: 'GET',
         redirect: 'follow',
       };
-
-      //TODO: make this look nicer when user receives an email
-      let message = `
-        Hey There, 
-        This is to notify you that your appointment has been set. 
-        View details below...\n
-
-        Service: ${senderObj.Subject} \n
-        Time: ${senderObj.StartTime} \n
-        Confirmation No.: ${senderObj.Id} \n
-        Venue: TBD \n
-        
-      `
-
-      fetch(`https://uur0cncxx8.execute-api.us-east-1.amazonaws.com/default/rimmiEmailSender?recipient=${recipient}&message=${message}`, requestOptions)
+      
+      fetch(`https://uur0cncxx8.execute-api.us-east-1.amazonaws.com/default/rimmiEmailSender?
+              recipient=${recipient}
+              &subject=${senderObj.Subject}
+              &startTime=${senderObj.StartTime}
+              &id=${senderObj.Id}`, 
+              requestOptions
+      )
       .then(response => response.json())
       .then(data => {
         console.log(data)
