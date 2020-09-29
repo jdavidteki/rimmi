@@ -1,7 +1,7 @@
 {
   "files": {
-    "app.js": "/rimmi/static/js/app.48c1efef.chunk.js",
-    "app.js.map": "/rimmi/static/js/app.48c1efef.chunk.js.map",
+    "app.js": "/rimmi/static/js/app.3087036c.chunk.js",
+    "app.js.map": "/rimmi/static/js/app.3087036c.chunk.js.map",
     "runtime~app.js": "/rimmi/static/js/runtime~app.bdd7229e.js",
     "runtime~app.js.map": "/rimmi/static/js/runtime~app.bdd7229e.js.map",
     "static/js/2.3d7c9730.chunk.js": "/rimmi/static/js/2.3d7c9730.chunk.js",
@@ -16,6 +16,6 @@
   "entrypoints": [
     "static/js/runtime~app.bdd7229e.js",
     "static/js/2.3d7c9730.chunk.js",
-    "static/js/app.48c1efef.chunk.js"
+    "static/js/app.3087036c.chunk.js"
   ]
 }
