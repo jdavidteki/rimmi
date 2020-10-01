@@ -30,7 +30,7 @@ class App extends Component {
               <Route path="/rimmi/signup" component={SignUp} />
               <Route path="/rimmi/details/:id" component={Details} />
               <Route path="/rimmi/profile" component={Profile} />
-              <Route path="/rimmi/schedular/:id" component={Schedular} />
+              <Route path="/rimmi/schedular/:id/:service/:details" component={Schedular} />
               <Route path="/rimmi/servicemaps" component={ServiceMaps} />
               <Route path="/rimmi/vendorsignup" component={VendorSignup} />
               <Route

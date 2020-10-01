@@ -5,6 +5,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Firebase from "../../Firebase/firebase.js";
 import Login from "../Login/Login"
 import { connect } from "react-redux";
+import { DateTimePickerComponent } from '@syncfusion/ej2-react-calendars';
 
 //@syncfusion styling
 import "./@syncfusion/ej2-base/styles/material.css";
@@ -27,6 +28,8 @@ class ConnectedSchedular extends Component {
         itemLoading: false,
         data: []
       }
+
+      this.serviceDetails = capitalize_Words(`${this.props.match.params.service} - ${this.props.match.params.details}`)
     }
 
     getApmts(serviceID) {
@@ -60,7 +63,6 @@ class ConnectedSchedular extends Component {
     }
 
     sendEmail = (recipient, senderObj) => {
-
       var requestOptions = {
         method: 'GET',
         redirect: 'follow',
@@ -81,9 +83,9 @@ class ConnectedSchedular extends Component {
   
     componentDidUpdate(prevProps, prevState, snapshot) {
       // If ID of product changed in URL, refetch details for that product
-      if (this.props.match.params.id !== prevProps.match.params.id) {
-        this.fetchVendorForCalendar(this.props.match.params.id);
-      }
+      // if (this.props.match.params.id !== prevProps.match.params.id) {
+      //   this.fetchVendorForCalendar(this.props.match.params.id);
+      // }
     }
 
     componentWillUnmount() {
@@ -100,8 +102,88 @@ class ConnectedSchedular extends Component {
       //TODO: give events id so that user can modify events as needed
       if (args.requestType == 'eventCreate'){
         console.log("args", args, this.props)
-        Firebase.addApmts(this.props.match.params.id, args.data[0])
+        Firebase.addApmts(this.props.match.params.id, this.props.loggedInUser.uid, args.data[0])
         this.sendEmail(this.props.loggedInUser.email, args.data[0])
+      }
+    }
+
+    content = (props) => {
+      return (
+      <div>
+        {props.elementType === 'cell' ?
+            <div>
+              <table className="e-popup-table">
+                <tbody>
+                  <tr>
+                    <td>
+                      <form>
+                        <div>
+                          {/* TODO: oya put service name here from url  */}
+                          <input className="subject e-field" type="text" name="Subject" placeholder="Add Jesuye" value={this.serviceDetails} readOnly/>
+                        </div>
+                      </form>
+                      </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div className="e-date-time">
+                            <div className="e-date-time-icon e-icons">
+                              </div>
+                                <div className="e-date-time-details e-text-ellipsis">
+                                  {new Date(props.startTime || props.StartTime).toString()}
+                                </div>
+                            </div>
+                        </td>
+                      </tr>
+                  </tbody>
+                </table>
+            </div>
+            :
+            <div className="e-event-content e-template">
+              <div className="e-subject-wrap">
+                {(props.Subject !== undefined) ?
+                  <div className="subject">{props.Subject}</div> : ""}
+                {(props.Location !== undefined) ?
+                  <div className="location">{props.Location}</div> : ""}
+                {(props.Description !== undefined) ?
+                  <div className="description">{props.Description}</div> : ""}
+              </div>
+            </div>
+        }
+      </div>);
+    }
+
+    editorTemplate = (props) => {
+      return ((props !== undefined) ? 
+        <table className="custom-event-editor" style={{ width: '100%', cellpadding: '5' }}>
+          <tbody>
+            <tr>
+              <td className="e-textlabel">Service</td><td colSpan={4}>
+                <input id="Summary" className="e-field e-input" type="text" name="Subject" style={{ width: '100%' }} value={this.serviceDetails} />
+              </td>
+            </tr>
+            <tr><td className="e-textlabel">From</td><td colSpan={4}>
+              <DateTimePickerComponent id="StartTime" format='dd/MM/yy hh:mm a' data-name="StartTime" value={new Date(props.startTime || props.StartTime)} className="e-field"></DateTimePickerComponent>
+            </td></tr>
+            <tr><td className="e-textlabel">To</td><td colSpan={4}>
+              <DateTimePickerComponent id="EndTime" format='dd/MM/yy hh:mm a' data-name="EndTime" value={new Date(props.endTime || props.EndTime)} className="e-field"></DateTimePickerComponent>
+            </td></tr>
+            <tr>
+              <td className="e-textlabel">Message to Vendor</td><td colSpan={4}>
+                <textarea id="Description" className="e-field e-input" name="Description" rows={3} cols={50} style={{ width: '100%', height: '60px !important', resize: 'vertical' }}></textarea>
+              </td>
+            </tr>
+          </tbody>
+        </table> 
+        : 
+        <div></div>
+      );
+    }
+
+    eventClick = (args) => {
+      if (args.event.ClientID != this.props.loggedInUser.uid){
+        alert("You can't edit an appointment you didnt create")
+        args.cancel = true
       }
     }
 
@@ -126,12 +208,15 @@ class ConnectedSchedular extends Component {
               {this.state.item.FirstName} {this.state.item.LastName}'s Calendar
             </div>
             <ScheduleComponent 
-              height='600px' 
+              height='900px' 
               actionBegin={this.onActionBegin}
+              quickInfoTemplates={{content: this.content}}
+              editorTemplate={this.editorTemplate}
+              eventClick={this.eventClick}
               eventSettings={{ 
                 dataSource: this.state.data
-              }}>
-                <Inject services={[Day, Week, WorkWeek, Month, Agenda]}/>
+            }}>
+              <Inject services={[Day, Week, WorkWeek, Month, Agenda]}/>
             </ScheduleComponent>
           </div>
         );
@@ -147,3 +232,8 @@ const mapStateToProps = state => {
 let Schedular = connect(mapStateToProps)(ConnectedSchedular);
 export default Schedular;
 
+
+function capitalize_Words(str)
+{
+ return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+}

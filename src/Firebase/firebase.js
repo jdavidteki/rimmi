@@ -129,7 +129,12 @@ class Firebase {
     })
   }
 
-  addApmts = (serviceID, apmtsObject) => {
+  addApmts = (serviceID, clientID, apmtsObject) => {
+    let desc = ""
+    if (apmtsObject.Description != undefined){
+      desc = apmtsObject.Description
+    }
+
     return new Promise((resolve, reject) => {
       this.db().
       ref('/appointments/' + serviceID + '/').
@@ -137,7 +142,9 @@ class Firebase {
         StartTime: JSON.stringify(apmtsObject.StartTime).replace(/['"]+/g, '').replace('.000Z', ''),
         EndTime: JSON.stringify(apmtsObject.EndTime).replace(/['"]+/g, '').replace('.000Z', ''),
         Id: serviceID,
-        Subject: apmtsObject.Subject
+        Subject: apmtsObject.Subject,
+        Message: desc,
+        ClientID: clientID,
       }).
       then(() => {
         resolve(true)

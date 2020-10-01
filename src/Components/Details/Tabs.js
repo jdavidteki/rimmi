@@ -68,7 +68,7 @@ export class Tabs extends Component {
 
     if (this.state.tabData){
       const tabs = this.state.tabData.map(([label, text], i) => {
-        content = this.state.active === i ? text : content;  
+        content = this.state.active === i ? text : content; 
         return <li 
                  className={this.state.active === i ? "tab active" : "tab" } 
                  key={label} 
@@ -88,7 +88,8 @@ export class Tabs extends Component {
           <div>
             {renderHTML(content)}
           </div>
-        </section>);
+        </section>
+      );
     }
 
     return <LinearProgress />

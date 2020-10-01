@@ -1751,7 +1751,7 @@
   dependencies:
     "@syncfusion/ej2-base" "~18.2.57"
 
-"@syncfusion/ej2-calendars@~18.2.56":
+"@syncfusion/ej2-calendars@18.2.56", "@syncfusion/ej2-calendars@~18.2.56":
   version "18.2.56"
   resolved "https://registry.yarnpkg.com/@syncfusion/ej2-calendars/-/ej2-calendars-18.2.56.tgz#622d82f0f5dfbb158e1201b89d77b020332fd148"
   integrity sha512-WDoS9wym9uM4I2dCWQyjFgqK5yBe4ERFMJHvD0Iyt0f4iDLY9XG2nGIx/81Qpid1KEjdqvS8QHtYVPb0gtBB0g==
@@ -1859,6 +1859,15 @@
   integrity sha512-TnX1PsxoYNa2/vmC+SxYxqbiX/nrHIx7+WZnjBcx1FkGkvWz+tksGyT2g4mL1RQ8D+6ScrR1zASDMeepwTZxZw==
   dependencies:
     "@syncfusion/ej2-base" "~18.2.55"
+
+"@syncfusion/ej2-react-calendars@^18.2.56":
+  version "18.2.56"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-react-calendars/-/ej2-react-calendars-18.2.56.tgz#ff33c945e7a0a521256560d414e1c300d22df052"
+  integrity sha512-cJ1rGVaKQlGiNfmVMcbH4KyG+5nP5cUvKORoOFnpAJTGvyf9arPu0DYrd2EIHKmz6g+QTgQ73qm+wo49x4klSw==
+  dependencies:
+    "@syncfusion/ej2-base" "~18.2.55"
+    "@syncfusion/ej2-calendars" "18.2.56"
+    "@syncfusion/ej2-react-base" "~18.2.55"
 
 "@syncfusion/ej2-react-schedule@^18.2.59":
   version "18.2.59"
