@@ -40,8 +40,7 @@ class ConnectedSchedular extends Component {
         for (var i = 0; i < val.length; i++) {
           apmts.push(val[i])
         }
-  
-        console.log("apmts", apmts)
+
         this.setState({
           data: apmts,
         });
@@ -62,7 +61,7 @@ class ConnectedSchedular extends Component {
       }
     }
 
-    sendEmail = (recipient, senderObj) => {
+    sendEmail = (recipient, senderObj, action) => {
       var requestOptions = {
         method: 'GET',
         redirect: 'follow',
@@ -72,7 +71,8 @@ class ConnectedSchedular extends Component {
               recipient=${recipient}
               &subject=${senderObj.Subject}
               &startTime=${senderObj.StartTime}
-              &id=${senderObj.Id}`, 
+              &id=${senderObj.Id}
+              &action=${action}`, 
               requestOptions
       )
       .then(response => response.json())
@@ -99,11 +99,24 @@ class ConnectedSchedular extends Component {
     }
 
     onActionBegin = (args) => {
-      //TODO: give events id so that user can modify events as needed
       if (args.requestType == 'eventCreate'){
-        console.log("args", args, this.props)
+        args.data[0].ClientID = this.props.loggedInUser.uid
         Firebase.addApmts(this.props.match.params.id, this.props.loggedInUser.uid, args.data[0])
-        this.sendEmail(this.props.loggedInUser.email, args.data[0])
+        this.sendEmail(this.props.loggedInUser.email, args.data[0], "created")
+      }
+
+      if (args.requestType == "eventRemove"){
+        Firebase.cancelApmts(this.props.match.params.id, args.data[0])
+        //TODO: improve confirmation email to check who canceled the appointment
+        this.sendEmail(this.props.loggedInUser.email, args.data[0], "canceled")
+      }
+    }
+
+    eventClick = (args) => {
+      console.log("args", args)
+      if (args.event.ClientID != this.props.loggedInUser.uid){
+        alert("You can't edit an appointment you didnt create")
+        args.cancel = true
       }
     }
 
@@ -159,7 +172,7 @@ class ConnectedSchedular extends Component {
           <tbody>
             <tr>
               <td className="e-textlabel">Service</td><td colSpan={4}>
-                <input id="Summary" className="e-field e-input" type="text" name="Subject" style={{ width: '100%' }} value={this.serviceDetails} />
+                <input id="Summary" className="e-field e-input" type="text" name="Subject" style={{ width: '100%' }} value={this.serviceDetails} readOnly/>
               </td>
             </tr>
             <tr><td className="e-textlabel">From</td><td colSpan={4}>
@@ -178,13 +191,6 @@ class ConnectedSchedular extends Component {
         : 
         <div></div>
       );
-    }
-
-    eventClick = (args) => {
-      if (args.event.ClientID != this.props.loggedInUser.uid){
-        alert("You can't edit an appointment you didnt create")
-        args.cancel = true
-      }
     }
 
     render() {

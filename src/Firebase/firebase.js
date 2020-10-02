@@ -145,6 +145,9 @@ class Firebase {
         Subject: apmtsObject.Subject,
         Message: desc,
         ClientID: clientID,
+        //TODO: find a better way to implement this timing
+        stString: JSON.stringify(apmtsObject.StartTime).replace(/['"]+/g, '').replace('.000Z', ''),
+        etString: JSON.stringify(apmtsObject.EndTime).replace(/['"]+/g, '').replace('.000Z', ''),
       }).
       then(() => {
         resolve(true)
@@ -152,6 +155,28 @@ class Firebase {
         reject(error)
       })
     })
+  }
+
+  cancelApmts = (vendorID, apmtsObject) => {
+    var  db = this.db()
+    var query = this.db().ref('/appointments/'+vendorID).orderByKey();
+    query.once("value")
+      .then(function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+        var pkey = childSnapshot.key; 
+        var chval = childSnapshot.val();
+
+        if((chval.Subject == apmtsObject.Subject) && 
+           (chval.StartTime == apmtsObject.stString) &&
+           (chval.EndTime == apmtsObject.etString)
+        ){
+          db.ref("appointments/" + vendorID + "/").
+          child(pkey).
+          remove();
+          return true;
+        }
+      });
+    });
   }
 
   fetchUserProfile = (uid) => {
