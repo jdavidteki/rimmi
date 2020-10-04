@@ -18,6 +18,10 @@ class Firebase {
   db = () => {
     return firebase.database()
   }
+
+  storage = () => {
+    return firebase.storage()
+  }
     
   userLogin = (email, password) => {
     return new Promise((resolve, reject) => {
@@ -209,6 +213,7 @@ class Firebase {
         email: profile.email,
         password: profile.password,
         dateJoined: today,
+        avatar: `https://firebasestorage.googleapis.com/v0/b/rimmi-ff8d1.appspot.com/o/images%2F${profile.uid}.jpeg?alt=media&token=86d4ac39-d703-416a-a257-f209a64b0cb4`
       }).
       then(() => {
         resolve(true)

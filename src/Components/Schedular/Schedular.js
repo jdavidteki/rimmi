@@ -67,12 +67,7 @@ class ConnectedSchedular extends Component {
         redirect: 'follow',
       };
       
-      fetch(`https://uur0cncxx8.execute-api.us-east-1.amazonaws.com/default/rimmiEmailSender?
-              recipient=${recipient}
-              &subject=${senderObj.Subject}
-              &startTime=${senderObj.StartTime}
-              &id=${senderObj.Id}
-              &action=${action}`, 
+      fetch(`https://uur0cncxx8.execute-api.us-east-1.amazonaws.com/default/rimmiEmailSender?recipient=${recipient}&subject=${senderObj.Subject}&startTime=${senderObj.StartTime}&id=${senderObj.Id}&action=${action}`, 
               requestOptions
       )
       .then(response => response.json())
@@ -131,7 +126,6 @@ class ConnectedSchedular extends Component {
                     <td>
                       <form>
                         <div>
-                          {/* TODO: oya put service name here from url  */}
                           <input className="subject e-field" type="text" name="Subject" placeholder="Add Jesuye" value={this.serviceDetails} readOnly/>
                         </div>
                       </form>
@@ -172,7 +166,9 @@ class ConnectedSchedular extends Component {
           <tbody>
             <tr>
               <td className="e-textlabel">Service</td><td colSpan={4}>
-                <input id="Summary" className="e-field e-input" type="text" name="Subject" style={{ width: '100%' }} value={this.serviceDetails} readOnly/>
+                <form>
+                  <input id="Summary" className="e-field e-input" type="text" name="Subject" style={{ width: '100%' }} value={this.serviceDetails}/>
+                </form>
               </td>
             </tr>
             <tr><td className="e-textlabel">From</td><td colSpan={4}>
