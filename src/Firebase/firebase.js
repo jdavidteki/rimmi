@@ -76,23 +76,28 @@ class Firebase {
   };
 
   sendEmailWithPassword = (email) => {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       firebase.auth().sendPasswordResetEmail(email)
         .then(() => {
           console.warn('Email with new password has been sent');
           resolve(true);
         }).catch(error => {
+          let errorString = ''
+
           switch (error.code) {
             case 'auth/invalid-email':
-              console.warn('Invalid email address format');
+              errorString  = 'Invalid email address format'
+              console.warn(errorString);
               break;
             case 'auth/user-not-found':
-              console.warn('User with this email does not exist');
+              errorString = 'User with this email does not exist'
+              console.warn(errorString);
               break;
             default:
-              console.warn('Check your internet connection');
+              errorString = 'Check your internet connection'
+              console.warn(errorString);
           }
-          resolve(false);
+          reject(errorString);
         });
     })
   };

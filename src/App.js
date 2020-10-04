@@ -7,6 +7,7 @@ import { StyleSheet } from 'react-native';
 import { Switch, Route } from "react-router-dom";
 import Login from "./Components/Login/Login";
 import SignUp from "./Components/SignUp/SignUp";
+import ForgetPassword from "./Components/ForgetPassword/ForgetPassword";
 import Details from "./Components/Details/Details";
 import Profile from "./Components/Profile/Profile";
 import Schedular from "./Components/Schedular/Schedular";
@@ -28,6 +29,7 @@ class App extends Component {
               <Route path="/rimmi/servicelist/" component={ServiceList} />
               <Route path="/rimmi/login" component={Login} />
               <Route path="/rimmi/signup" component={SignUp} />
+              <Route path="/rimmi/forgetpassword" component={ForgetPassword} />
               <Route path="/rimmi/details/:id" component={Details} />
               <Route path="/rimmi/profile" component={Profile} />
               <Route path="/rimmi/schedular/:id/:service/:details" component={Schedular} />

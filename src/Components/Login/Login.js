@@ -118,6 +118,23 @@ class ConnectedLogin extends Component {
           >
             Sign Up
           </Button>
+          {" "}
+          {" "}
+          {" "}
+          <Button
+            title='Forgot Password?'
+            onClick = {() => 
+              {
+                this.props.history.push("/rimmi/forgetpassword");
+              }
+            }
+            titleStyle={{
+              color: '#039BE5'
+            }}
+            type='clear'
+          >
+            Forget Password
+          </Button>
         </div>
       </div>
     );
