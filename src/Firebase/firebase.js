@@ -120,6 +120,24 @@ class Firebase {
     })
   }
 
+  getAllApmts = () => {
+    return new Promise((resolve, reject) => {
+      this.db().
+      ref('/appointments/').
+      once('value').
+      then(snapshot => {
+        if (snapshot.val()){
+            resolve(Object.values(snapshot.val()))
+          }else{
+            resolve({})
+        }
+      }).
+      catch(error => {
+        reject(error)
+      })
+    })
+  }
+
   getApmtsByID = (serviceID) => {
     return new Promise((resolve, reject) => {
       this.db().

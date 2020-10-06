@@ -13,7 +13,7 @@ import Profile from "./Components/Profile/Profile";
 import Schedular from "./Components/Schedular/Schedular";
 import ServiceMaps from "./Components/ServiceMaps/ServiceMaps";
 import VendorSignup from "./Components/VendorSignup/VendorSignup";
-
+import Appointments from "./Components/Appointments/Appointments";
 
 import "./App.css";
 
@@ -35,6 +35,7 @@ class App extends Component {
               <Route path="/rimmi/schedular/:id/:service/:details" component={Schedular} />
               <Route path="/rimmi/servicemaps" component={ServiceMaps} />
               <Route path="/rimmi/vendorsignup" component={VendorSignup} />
+              <Route path="/rimmi/appointments" component={Appointments} />
               <Route
                 component={() => (
                   <div style={{ padding: 20 }}>Page not found</div>

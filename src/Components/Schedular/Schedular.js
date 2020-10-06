@@ -126,6 +126,7 @@ class ConnectedSchedular extends Component {
                     <td>
                       <form>
                         <div>
+                          {/* TODO: if this.serviceDetails is undefined remove readonly */}
                           <input className="subject e-field" type="text" name="Subject" placeholder="Add Jesuye" value={this.serviceDetails} readOnly/>
                         </div>
                       </form>
