@@ -1,0 +1,6 @@
+/* smaller screens */
+@media only screen and (max-width: 780px) {
+    .Appointment-item {
+        width: 100%;
+    }
+}

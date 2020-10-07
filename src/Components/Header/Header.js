@@ -38,7 +38,7 @@ class ConnectedHeader extends Component {
     
     return (
       <div className="Header">
-          <div>WELCOME TO RIMMI</div>
+          <div>RIMMI -  We See You...</div>
           <div className="right-part">
             {!this.props.someoneLoggedIn ? (
               <Button
