@@ -21,6 +21,7 @@ const mapStateToProps = state => {
   };
 };
 
+// TODO:when people Search,it should return cloeset 5 vendors to thier current location
 class ConnectedHeader extends Component {
   state = {
   };
@@ -70,18 +71,6 @@ class ConnectedHeader extends Component {
             >
               <MenuItem
                 onClick={() => {
-                  Auth.signout(() => {
-                    this.props.history.push("/rimmi/");
-                    this.props.dispatch(logout());
-                  });
-                  this.setState({ anchorEl: null});
-                  localStorage.removeItem('loggedInUser');
-                }}
-              >
-                Logout
-              </MenuItem>
-              <MenuItem
-                onClick={() => {
                   this.props.history.push("/rimmi/");
                 }}
               >
@@ -107,10 +96,21 @@ class ConnectedHeader extends Component {
                   <TextField></TextField>
                 )
               }
+              <MenuItem
+                onClick={() => {
+                  Auth.signout(() => {
+                    this.props.history.push("/rimmi/");
+                    this.props.dispatch(logout());
+                  });
+                  this.setState({ anchorEl: null});
+                  localStorage.removeItem('loggedInUser');
+                }}
+              >
+                Logout
+              </MenuItem>
             </Menu>
           </div>
       </div>
-
     );
   }
 }

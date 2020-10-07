@@ -3,13 +3,9 @@ import Item from "../Item/Item";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import queryString from "query-string";
 import Api from "../../Api";
-import Paging from "../Paging/Paging";
 import ProductsHeader from "../ProductsHeader/ProductsHeader"
 import Button from "@material-ui/core/Button";
 
-
-// This component is responsible for fetching services. It determines from query string which products to fetch.
-// The URL is checked on initial mount and when URL changes.
 class ServiceList extends Component {
   constructor(props) {
     super(props);
@@ -72,13 +68,15 @@ class ServiceList extends Component {
     let parsedQS = queryString.parse(this.props.location.search);
 
     if (this.state.loading) {
-      return (<CircularProgress 
-        className="circleStatic" 
-        size={60}
-        style={{
-          position: 'absolute', left: '50%', top: '50%',
-        }}
-      />);
+      return (
+        <CircularProgress 
+          className="circleStatic" 
+          size={60}
+          style={{
+            position: 'absolute', left: '50%', top: '50%',
+          }}
+        />
+      );
     }
 
     return (
@@ -105,14 +103,14 @@ class ServiceList extends Component {
             totalItemsCount={this.state.totalItemsCount} 
           />
 
-          <div style={{ flex: 1 }}>
+          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
             {this.state.items.map(item => {
               return <Item key={item.VendorID} item={item} />;
             })}
           </div>
         </div>
 
-        {/* TODO */}
+        {/* TODO implement paging*/}
         {/* <Paging
           parsedQS={parsedQS}
           updateQueryString={this.updateQueryString}

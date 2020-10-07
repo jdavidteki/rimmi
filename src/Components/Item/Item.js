@@ -1,16 +1,11 @@
 import React, { Component } from "react";
-import IconButton from "@material-ui/core/IconButton";
-import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
-import ForumIcon from '@material-ui/icons/Forum';
 import { connect } from "react-redux";
-import  Firebase from "../../Firebase/firebase.js"
 import { withRouter } from "react-router-dom";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import Tooltip from "@material-ui/core/Tooltip";
 import Button from "@material-ui/core/Button";
 
 
@@ -29,10 +24,9 @@ class ConnectedItem extends Component {
             style={{ height: 140 }}
             image={this.props.item.ImageURL}
           />
-          <CardContent style={{ height: 50 }}>
+          <CardContent>
             <div
               style={{
-                marginLeft: 5,
                 fontWeight: "bold",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
@@ -41,8 +35,7 @@ class ConnectedItem extends Component {
             >
               {this.props.item.FirstName} {this.props.item.LastName}
             </div>
-            {/* <div style={{ margin: 5 }}>Price: {this.props.item.price} $</div> */}
-            <div style={{ color: "#1a9349", fontWeight: "bold", margin: 5 }}>
+            <div style={{ color: "#1a9349", fontWeight: "bold" }}>
               {this.props.item.MainPhone}<br/>
               {this.props.item.OfficeLine1}, {this.props.item.OfficeCity}
             </div>
@@ -50,7 +43,7 @@ class ConnectedItem extends Component {
           </CardContent>
         </CardActionArea>
         <CardActions
-          style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 45 }}
+          style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 50 }}
         >
           <Button
             size="small"
@@ -62,42 +55,6 @@ class ConnectedItem extends Component {
             {" "}
             Details
           </Button>
-          <Tooltip title="Add to cart">
-            <IconButton
-              size="small"
-              onClick={e => {
-                e.stopPropagation();
-                Firebase.addItemToCart({ item: this.props.item, quantity: 1, uid: this.props.loggedInUser.uid})
-              }}
-              color="primary"
-              aria-label="Add to shopping cart"
-            >
-              <AddShoppingCartIcon size="small" />
-            </IconButton>
-          </Tooltip>
-          {/* {this.props.loggedInUser ? (
-            <Tooltip title="Negotiate Price">
-              <IconButton
-                size="small"
-                onClick={e => {
-                  e.stopPropagation();
-
-                if (this.props.loggedInUser.uid == this.props.item.sellerId){
-                    //call seller view negotiation view
-                    this.props.history.push("/rimmi/allnegotiations/" + this.props.item.VendorID);
-                  } else {
-                    this.props.history.push("/rimmi/negotiateprice/" + this.props.item.VendorID);
-                  }
-                }}
-                color="primary"
-                aria-label="Negotiate Price"
-              >
-                <ForumIcon size="small" />
-              </IconButton>
-            </Tooltip>
-          ):(
-            <div  style={{ display: "none" }}></div>
-          )} */}
         </CardActions>
       </Card>
     );

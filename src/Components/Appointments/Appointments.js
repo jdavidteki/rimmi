@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
     },
     item: {
-      backgroundColor: '#d5f3f5',
+      backgroundColor: '#f5f5f5',
       padding: 20,
       marginVertical: 8,
       marginHorizontal: 16,

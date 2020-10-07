@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import Button from "@material-ui/core/Button";
-import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Api from "../../Api";
 import Item from "../Item/Item";
@@ -126,16 +124,6 @@ class ConnectedDetails extends Component {
             >
               {this.state.item.Description ? this.state.item.Description : "Not available"}
             </div>
-            <Button
-              style={{ width: 175, marginTop: 5 }}
-              color="primary"
-              variant="outlined"
-              onClick={() => {
-                this.props.history.push("/rimmi/schedular/" + this.props.match.params.id);
-              }}
-            >
-              Book Me<AddShoppingCartIcon style={{ marginLeft: 5 }} />
-            </Button>
           </div>
         </div>
 

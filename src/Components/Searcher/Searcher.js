@@ -20,7 +20,18 @@ class ConnectedSearcher extends Component {
     super(props);
 
     this.state = {
-      animations: ["haircut", "okada", "laundry", "vulcanizer", "purewater"], 
+      animatedTexts: [
+        "okada", 
+        "barber", 
+        "laundry", 
+        "vulcanizer", 
+        "pedicure",
+        "baby sitting",
+        "massage",
+        "house keeping",
+        "haircut",
+        "braids",
+      ], 
       count:0,
     };
   }
@@ -34,9 +45,9 @@ class ConnectedSearcher extends Component {
 
     setInterval( () => { 
       this.setState({
-        count: (this.state.count+1) % 5
+        count: (this.state.count+1) % 10
       })
-    }, 3000);
+    }, 4000);
 
   }
 
@@ -72,7 +83,7 @@ class ConnectedSearcher extends Component {
 
         <ReactTypingEffect
           style={{ marginTop: 200, fontSize: 24, color: '#3F51B5' }}
-          text={this.state.animations[this.state.count] + '??'}
+          text={this.state.animatedTexts[this.state.count] + '??'}
           speed={150}
           eraseDelay={150}
           typingDelay={150}
