@@ -73,7 +73,11 @@ class ServiceList extends Component {
           className="circleStatic" 
           size={60}
           style={{
-            position: 'absolute', left: '50%', top: '50%',
+            position: 'absolute', 
+            left: '50%', 
+            top: '50%', 
+            marginTop: '-50px', 
+            marginLeft: '-30px'
           }}
         />
       );

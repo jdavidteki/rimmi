@@ -196,13 +196,19 @@ class ConnectedSchedular extends Component {
         }
 
         if (this.state.itemLoading) {
-          return (<CircularProgress 
-            className="circleStatic" 
-            size={60}
-            style={{
-              position: 'absolute', left: '50%', top: '50%',
-            }}
-          />);
+          return (
+            <CircularProgress 
+              className="circleStatic" 
+              size={60}
+              style={{
+                position: 'absolute', 
+                left: '50%', 
+                top: '50%', 
+                marginTop: '-50px', 
+                marginLeft: '-30px'
+              }}
+            />
+          );
         }
 
         return (
