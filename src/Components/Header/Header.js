@@ -24,6 +24,7 @@ const mapStateToProps = state => {
 // TODO:when people Search,it should return cloeset 5 vendors to thier current location
 class ConnectedHeader extends Component {
   state = {
+    anchorEl: null
   };
 
   componentDidMount(){
@@ -57,7 +58,7 @@ class ConnectedHeader extends Component {
                   onClick={event => {
                     this.setState({ anchorEl: event.currentTarget });
                   }}
-                  style={{ backgroundColor: "#3f51b5", marginRight: 10, cursor: "pointer" }}
+                  style={{ backgroundColor: "#3f51b5", marginRight: 10, cursor: "pointer", objectFit: "inherit"}}
                   src={`https://firebasestorage.googleapis.com/v0/b/rimmi-ff8d1.appspot.com/o/images%2F${this.props.loggedInUser.uid}.jpeg?alt=media&token=86d4ac39-d703-416a-a257-f209a64b0cb4`}
                 >
                   <Person />
@@ -66,12 +67,14 @@ class ConnectedHeader extends Component {
             <Menu
               anchorEl={anchorEl}
               open={Boolean(anchorEl)}
+              keepMounted
               onClose={() => {
                 this.setState({ anchorEl: null });
               }}
             >
               <MenuItem
                 onClick={() => {
+                  this.setState({ anchorEl: null });
                   this.props.history.push("/rimmi/");
                 }}
               >
@@ -79,6 +82,7 @@ class ConnectedHeader extends Component {
               </MenuItem>
               <MenuItem
                 onClick={() => {
+                  this.setState({ anchorEl: null });
                   this.props.history.push("/rimmi/appointments");
                 }}
               >
@@ -88,6 +92,7 @@ class ConnectedHeader extends Component {
                 (
                   <MenuItem
                     onClick={() => {
+                      this.setState({ anchorEl: null });
                       this.props.history.push("/rimmi/profile");
                     }}
                   >

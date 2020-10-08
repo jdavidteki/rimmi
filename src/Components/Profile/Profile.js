@@ -95,24 +95,24 @@ class ConnectedProfile extends Component {
                             {this.state.avatarOnFile ? (
                                  <img src={this.readyMadeAvatar} alt="Profile image" onError={this.ImgOnFile}/>
                             ):(
-                                <form>
-                                    {this.state.isUploading && <p>Progress: {this.state.progress}</p>}
-                                    {this.state.avatarURL && <img src={this.state.avatarURL} alt="Profile image" />}
-                                    <label style={{backgroundColor: 'steelblue', color: 'white', padding: 10, borderRadius: 4, cursor: 'pointer'}}>
-                                        Upload Picture
-                                        <FileUploader
-                                            hidden
-                                            accept="image/jpeg"
-                                            filename={file => this.props.loggedInUser.uid }
-                                            storageRef={Firebase.storage().ref('images/')}
-                                            onUploadStart={this.handleUploadStart}
-                                            onUploadError={this.handleUploadError}
-                                            onUploadSuccess={this.handleUploadSuccess}
-                                            onProgress={this.handleProgress}
-                                        />
-                                    </label>
-                                </form>
+                                <div></div>
                             )}
+                            <form>
+                                {this.state.isUploading && <p>Progress: {this.state.progress}</p>}
+                                <label style={{color: '#1a4e8e', padding: 10, borderRadius: 4, cursor: 'pointer', }}>
+                                    <span className="Profile-image-label">Update Avatar</span>
+                                    <FileUploader
+                                        hidden
+                                        accept="image/jpeg"
+                                        filename={file => this.props.loggedInUser.uid }
+                                        storageRef={Firebase.storage().ref('images/')}
+                                        onUploadStart={this.handleUploadStart}
+                                        onUploadError={this.handleUploadError}
+                                        onUploadSuccess={this.handleUploadSuccess}
+                                        onProgress={this.handleProgress}
+                                    />
+                                </label>
+                            </form>
 
                             <h2
                                 style={{ marginTop: 20 }}

@@ -90,6 +90,10 @@
     color: #a3b6bb;
 }
 
+.Profile-image-label:hover{
+    color: black;
+}
+
 /* smaller screens */
 @media only screen and (max-width: 600px) {
     .Profile-wrapper {
