@@ -5,6 +5,7 @@ import queryString from "query-string";
 import Api from "../../Api";
 import ProductsHeader from "../ProductsHeader/ProductsHeader"
 import Button from "@material-ui/core/Button";
+import { geolocated } from "react-geolocated";
 
 class ServiceList extends Component {
   constructor(props) {
@@ -16,22 +17,28 @@ class ServiceList extends Component {
       items: []
     };
     this.updateQueryString = this.updateQueryString.bind(this);
-
   }
 
   async fetchData() {
-
     this.setState({ loading: true });
 
     // Parse the query string
     let qsAsObject = queryString.parse(this.props.location.search);
 
     let results = await Api.searchItems(qsAsObject);
+
+    let filteredResult = []
+
+    for(var i=0; i<results.data.length; i++){
+      if (this.closeToUserLoc(results.data[i].longitude, results.data[i].latitude)){
+        filteredResult.push(results.data[i])
+      }
+    }
     
     this.setState({
-      items: results.data,
+      items: filteredResult,
       loading: false,
-      totalItemsCount: results.totalLength
+      totalItemsCount: filteredResult.length
     });
   }
 
@@ -43,6 +50,24 @@ class ServiceList extends Component {
     let currentQS = queryString.parse(this.props.location.search);
     let newQS = { ...currentQS, ...newValues };
     this.props.history.push("/rimmi?" + queryString.stringify(newQS));
+  }
+
+  closeToUserLoc(lat, long){
+    let userLat = 0
+    let userLong = 0
+    let distanceFromUser = calcDistance(lat, long, userLat, userLong)
+
+    if (this.props.coords){
+      userLat = this.props.coords.latitude
+      userLong = this.props.coords.longitude
+    }
+    // TODO: fix this for center of nigeria
+    distanceFromUser = 6
+
+    if( distanceFromUser > 5){
+      return true
+    }
+    return false
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -125,4 +150,31 @@ class ServiceList extends Component {
   }
 }
 
-export default ServiceList;
+function calcDistance(lat1, lon1, lat2, lon2, unit) {
+	if ((lat1 == lat2) && (lon1 == lon2)) {
+		return 0;
+	}
+	else {
+		var radlat1 = Math.PI * lat1/180;
+		var radlat2 = Math.PI * lat2/180;
+		var theta = lon1-lon2;
+		var radtheta = Math.PI * theta/180;
+		var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+		if (dist > 1) {
+			dist = 1;
+		}
+		dist = Math.acos(dist);
+		dist = dist * 180/Math.PI;
+		dist = dist * 60 * 1.1515;
+		if (unit=="K") { dist = dist * 1.609344 }
+		if (unit=="N") { dist = dist * 0.8684 }
+		return dist;
+  }
+}
+
+export default geolocated({
+  positionOptions: {
+      enableHighAccuracy: false,
+  },
+  userDecisionTimeout: 5000,
+})(ServiceList);

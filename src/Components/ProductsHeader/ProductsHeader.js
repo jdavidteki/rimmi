@@ -43,6 +43,7 @@ class ProductsHeader extends Component {
             {keyword}
           </span>
         )}
+        <span style={{ fontSize: 12, color: "gray", marginTop: 5 }}> near you</span>
       </React.Fragment>
     );
 

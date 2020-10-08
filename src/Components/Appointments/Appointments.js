@@ -83,7 +83,7 @@ class ConnectedAppointments extends Component {
                 {this.state.upComingApmts.length > 0 ? 
                     (
                         <div>
-                            <Text style={styles.title}>Upcoming Appointments</Text>
+                            <Text style={styles.title}>UPCOMING APPOINTMENTS</Text>
                             <SafeAreaView style={styles.container}>
                                 <FlatList
                                     data={this.state.upComingApmts}
@@ -115,7 +115,7 @@ class ConnectedAppointments extends Component {
                 {this.state.prevApmts.length > 0 ?
                 (
                     <div>
-                        <Text style={styles.title}>Previous Appointments</Text>
+                        <Text style={styles.title}>PREVIOUS APPOINTMENTS</Text>
                         <SafeAreaView style={styles.container}>
                             <FlatList
                                 data={this.state.prevApmts}
@@ -140,8 +140,8 @@ class ConnectedAppointments extends Component {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      paddingTop: 15,
       backgroundColor: '#fff',
+      marginBottom: 20,
     },
     item: {
       backgroundColor: '#f5f5f5',
@@ -151,9 +151,10 @@ const styles = StyleSheet.create({
       width: '40%',
     },
     title: {
-      fontSize: 20,
+      fontSize: 14,
       marginVertical: 8,
       marginHorizontal: 16,
+      fontWeight: 900,
     },
 });
 

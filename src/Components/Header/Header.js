@@ -39,7 +39,7 @@ class ConnectedHeader extends Component {
     
     return (
       <div className="Header">
-          <div>RIMMI -  We See You...</div>
+          <div style={{ fontWeight: 900 }} >RIMMI -  we see you...</div>
           <div className="right-part">
             {!this.props.someoneLoggedIn ? (
               <Button
@@ -57,11 +57,12 @@ class ConnectedHeader extends Component {
                   onClick={event => {
                     this.setState({ anchorEl: event.currentTarget });
                   }}
-                  style={{ backgroundColor: "#3f51b5", marginRight: 10 }}
+                  style={{ backgroundColor: "#3f51b5", marginRight: 10, cursor: "pointer" }}
+                  src={`https://firebasestorage.googleapis.com/v0/b/rimmi-ff8d1.appspot.com/o/images%2F${this.props.loggedInUser.uid}.jpeg?alt=media&token=86d4ac39-d703-416a-a257-f209a64b0cb4`}
                 >
                   <Person />
                 </Avatar>
-              )}
+            )}
             <Menu
               anchorEl={anchorEl}
               open={Boolean(anchorEl)}
