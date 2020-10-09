@@ -5,15 +5,8 @@ import { withRouter } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import ReactTypingEffect from 'react-typing-effect';
-
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import './Searcher.css';
-
-const mapStateToProps = state => {
-  return {
-    loggedInUser: state.loggedInUser,
-    someoneLoggedIn: state.someoneLoggedIn,
-  };
-};
 
 class ConnectedSearcher extends Component {
   constructor(props){
@@ -34,6 +27,8 @@ class ConnectedSearcher extends Component {
       ], 
       count:0,
     };
+
+    this.searchTerm=''
   }
 
   componentDidMount(){
@@ -48,38 +43,35 @@ class ConnectedSearcher extends Component {
         count: (this.state.count+1) % 10
       })
     }, 4000);
-
   }
 
   render() {
-
-    return (
-      //TODO: make the search placeholder animate and change
-      //make your hair?? --> pedicure?? --> barber shop?? --> braids???
+    return (      
       <div className="Searcher-container">
-        <TextField
-          label="What do you want to do today???"
-          value={this.state.searchTerm}
-          onChange={e => {
-            this.setState({ searchTerm: e.target.value });
+        <Autocomplete
+          id="controllable-states-demo"
+          value={this.searchTerm}
+          options={this.state.animatedTexts.slice(0,5)}
+          renderInput={(params) => <TextField {...params} className="Searcher-input" label="what do you want to do today??" variant="outlined" />}
+          onInputChange={(event, newInputValue) => {
+            this.searchTerm = newInputValue
           }}
-          style={{ marginLeft: 30, width: 250, marginBottom: 15 }}
-        />
-
-        <Button
-          style={{ marginLeft: 20 }}
-          variant="outlined"
-          color="primary"
-          onClick={() => {
+          onChange={(event, newValue) => {
+            this.searchTerm = newValue
             this.props.history.push(
               "/rimmi/servicelist?term=" +
-              this.state.searchTerm
+              newValue
             );
           }}
-        >
-          {" "}
-          Search
-        </Button>
+          onKeyUp = {event => {
+            if (event.key === 'Enter') {
+              this.props.history.push(
+                "/rimmi/servicelist?term=" +
+                this.searchTerm
+              );
+            }
+          }}
+        />
 
         <ReactTypingEffect
           style={{ marginTop: 200, fontSize: 24, color: '#3F51B5' }}
@@ -92,6 +84,13 @@ class ConnectedSearcher extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    loggedInUser: state.loggedInUser,
+    someoneLoggedIn: state.someoneLoggedIn,
+  };
+};
 
 const Searcher = withRouter(connect(mapStateToProps)(ConnectedSearcher));
 export default Searcher;
