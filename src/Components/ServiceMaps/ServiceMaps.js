@@ -97,24 +97,14 @@ class ConnectedServiceMaps extends Component {
     }
   
     render() {
-        const facilities = [
-            {
-                name: "Jesuye David",
-                longitude: -78.94,
-                latitude: 35.92,
-            },{
-                name: "Ibiwunmi Fambegbe",
-                longitude: -77.03,
-                latitude: 38.88,
-            },
-        ]
-
-        const infoBox = this.state.entered === true ? 
-            <InfoBox 
-                lat={this.state.lat} 
-                lng={this.state.lng} 
-                service={this.state.service} 
-            /> : null
+        const infoBox = this.state.entered === true && 
+            this.state.service.VendorID != undefined ? 
+                <InfoBox 
+                    lat={this.state.lat} 
+                    lng={this.state.lng} 
+                    service={this.state.service} 
+                /> 
+            : null
 
         const servicePins = this.state.items.map((service, index) => {
             if (service.latitude === null || service.longitude === null){
