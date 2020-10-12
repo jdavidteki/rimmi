@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import renderHTML from 'react-render-html';
 import Firebase from "../../Firebase/firebase.js";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import { connect } from "react-redux";
+import { loadServiceDetails } from "../../Redux/Actions";
 
 import "./Tabs.css"
-
-export class Tabs extends Component {
+class ConnectedTabs extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,10 +28,10 @@ export class Tabs extends Component {
   buildTabDataFromServices = () => {
     let services = this.props.data.split(",")
     let tabData = []
+    let urlToRealService = {}
 
     Firebase.getAllServiceDetails().
     then(val => {
-
       for (var i=0; i<services.length; i++){
         let trimService = services[i].toLowerCase().trim()
         let servicesDetails = Object(val)
@@ -40,10 +41,12 @@ export class Tabs extends Component {
 
           for (var j=0; j<detailedServiceList.length; j++){
             if (detailedServiceList[j] != undefined){
+              let urlServiceName = detailedServiceList[j].split(" ").join("").replace(/[^0-9a-z]/gi, '')
+              urlToRealService[urlServiceName] = detailedServiceList[j]
               detailedServiceList[j] = 
               //TODO: can this be done more efficiently?
               `<a 
-                href="/rimmi/schedular/${this.props.vendorID}/${trimService}/${detailedServiceList[j].split(" ").join("-")}"
+                href="/rimmi/schedular/${this.props.vendorID}/${trimService}/${urlServiceName}"
                 style="text-decoration: none; white-space: nowrap;">
                   <Button
                     class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary"
@@ -53,12 +56,14 @@ export class Tabs extends Component {
               </a>`
             }
           }
-
           tabData.push([trimService, detailedServiceList.join(" ")])
         }
-
       }
 
+      localStorage.setItem('urlToRealService', JSON.stringify({
+        "urlToRealService": urlToRealService,
+      }));
+    
       this.setState({tabData: tabData})
     })
   }
@@ -95,3 +100,12 @@ export class Tabs extends Component {
     return <LinearProgress />
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    loggedInUser: state.loggedInUser,
+  };
+};
+
+let Tabs = connect(mapStateToProps)(ConnectedTabs);
+export default Tabs;

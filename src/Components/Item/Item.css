@@ -1,0 +1,12 @@
+.Card{
+    width: 200px; 
+    height: 270px; 
+    margin: 10px; 
+    display: inline-block;
+}
+
+@media only screen and (max-width: 600px) {
+    .Card{
+        width: 100%;
+    }
+}

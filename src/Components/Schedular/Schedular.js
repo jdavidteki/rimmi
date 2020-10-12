@@ -23,13 +23,13 @@ class ConnectedSchedular extends Component {
     constructor() {
       super(...arguments);
 
+      this.serviceDetails = ''
       this.state = {
         item: null,
         itemLoading: false,
-        data: []
+        data: [],
+        urlToRealService: {}
       }
-
-      this.serviceDetails = capitalize_Words(`${this.props.match.params.service} - ${this.props.match.params.details}`)
     }
 
     getApmts(serviceID) {
@@ -72,7 +72,7 @@ class ConnectedSchedular extends Component {
       )
       .then(response => response.json())
       .then(data => {
-        console.log(data)
+        // console.log(data)
       });
     };
   
@@ -91,6 +91,11 @@ class ConnectedSchedular extends Component {
       this.isCompMounted = true;
       this.fetchVendorForCalendar(this.props.match.params.id);
       this.getApmts(this.props.match.params.id)
+
+      let urlToRealService = JSON.parse(localStorage.getItem('urlToRealService'));
+      if (urlToRealService != null){
+        this.serviceDetails = capitalize_Words(`${this.props.match.params.service}:- ${urlToRealService.urlToRealService[this.props.match.params.details]}`)
+      }
     }
 
     onActionBegin = (args) => {
@@ -127,7 +132,7 @@ class ConnectedSchedular extends Component {
                       <form>
                         <div>
                           {/* TODO: if this.serviceDetails is undefined remove readonly */}
-                          <input className="subject e-field" type="text" name="Subject" placeholder="Add Jesuye" value={this.serviceDetails} readOnly/>
+                          <input className="subject e-field" style={{ width: '100%' }} type="text" name="Subject" placeholder="Add Jesuye" value={this.serviceDetails} readOnly/>
                         </div>
                       </form>
                       </td>

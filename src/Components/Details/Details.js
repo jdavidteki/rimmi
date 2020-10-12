@@ -3,7 +3,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Api from "../../Api";
 import Item from "../Item/Item";
 import { connect } from "react-redux";
-import { Tabs } from './Tabs'
+import  Tabs  from './Tabs'
 
 import "./Details.css"
 class ConnectedDetails extends Component {

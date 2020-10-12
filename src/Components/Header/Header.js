@@ -14,13 +14,6 @@ import {
 } from "../../Redux/Actions";
 import './Header.css';
 
-const mapStateToProps = state => {
-  return {
-    loggedInUser: state.loggedInUser,
-    someoneLoggedIn: state.someoneLoggedIn,
-  };
-};
-
 // TODO:when people Search,it should return cloeset 5 vendors to thier current location
 class ConnectedHeader extends Component {
   state = {
@@ -40,7 +33,7 @@ class ConnectedHeader extends Component {
     
     return (
       <div className="Header">
-          <div style={{ fontWeight: 900 }} >RIMMI -  we see you...</div>
+          <div style={{ fontWeight: 900 }} >RIMMI -  we see you</div>
           <div className="right-part">
             {!this.props.someoneLoggedIn ? (
               <Button
@@ -120,6 +113,13 @@ class ConnectedHeader extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    loggedInUser: state.loggedInUser,
+    someoneLoggedIn: state.someoneLoggedIn,
+  };
+};
 
 const Header = withRouter(connect(mapStateToProps)(ConnectedHeader));
 export default Header;

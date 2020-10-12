@@ -1,16 +1,3 @@
-.SearchMaps{
-    width: 100%;
-    height: 100%;
-}
-
-.InfoBox{
-    display: flex;
-    padding: 10px;
-    background-color: white;
-    min-width: 100px;
-    min-height: 100px;
-}
-
 .VendorSignup-categories{
     width: 100%;
 }

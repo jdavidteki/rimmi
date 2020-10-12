@@ -8,12 +8,13 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 
+import "./Item.css"
 
 class ConnectedItem extends Component {
   render() {
     return (
       <Card
-        style={{ width: 200, height: 270, margin: 10, display: "inline-block" }}
+        className="Card"
       >
         <CardActionArea
           onClick={() => {

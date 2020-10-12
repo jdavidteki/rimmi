@@ -51,7 +51,7 @@ class ProductsHeader extends Component {
       <div>
         <div style={{ padding: 10, display: "flex", alignItems: "center" }}>
           <div style={{ flex: 1, fontSize: 24 }}>
-            <div>{category ? category : "Popular Products"}</div>
+            <div>{category ? category : "Popular Vendors"}</div>
             {subtitle}
           </div>
 

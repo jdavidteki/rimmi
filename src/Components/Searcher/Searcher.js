@@ -3,7 +3,6 @@ import { setLoggedInUser } from "../../Redux/Actions";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
 import ReactTypingEffect from 'react-typing-effect';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import './Searcher.css';
